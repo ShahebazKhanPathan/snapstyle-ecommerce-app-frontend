@@ -1,6 +1,6 @@
-import { Button, Divider, Heading, List, ListIcon, ListItem, SimpleGrid, VStack } from "@chakra-ui/react";
+import { Button, List, ListItem, SimpleGrid } from "@chakra-ui/react";
 import { GiWashingMachine, GiSofa } from "react-icons/gi";
-import { FaMobileAlt, FaTshirt, FaLaptop } from "react-icons/fa";
+import { FaTshirt, FaLaptop } from "react-icons/fa";
 import { MdToys } from "react-icons/md";
 
 const CategoryList = () => {
