@@ -3,7 +3,7 @@ import SearchBar from "./components/SearchBar"
 import CategoryList from "./components/CategoryList"
 import { FaUserCircle } from "react-icons/fa";
 import ProductList from "./components/ProductList";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
 
         <GridItem colSpan={{base: 1, sm: 1}}>
           <Box>
-            <Link to={"/login"}><Button size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Login</Button></Link>
+            <Link to={"/signup"}><Button size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Sign up</Button></Link>
           </Box>
         </GridItem>
 
@@ -62,7 +62,7 @@ function App() {
           </GridItem>
         </Show>
         <GridItem colSpan={{ base: 5, sm: 5, md: 5, lg: 4, xl: 4}}>
-          <ProductList/>
+          <Outlet/>
         </GridItem>
       </Grid>
     </>
