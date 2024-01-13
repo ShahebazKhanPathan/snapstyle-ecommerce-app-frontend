@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SignUpForm from './components/SignUpForm.tsx'
 import ProductList from './components/ProductList.tsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import SignInForm from './components/SignInForm.tsx'
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,11 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUpForm/>
-      }
+      },
+      {
+        path: "/signin",
+        element: <SignInForm/>
+      },
     ]
   },
   {

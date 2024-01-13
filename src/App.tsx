@@ -1,8 +1,7 @@
-import { Grid, GridItem, Box, Button, Image, Show, Hide} from "@chakra-ui/react"
+import { Grid, GridItem, Box, Button, Image, Show, Hide, HStack} from "@chakra-ui/react"
 import SearchBar from "./components/SearchBar"
 import CategoryList from "./components/CategoryList"
 import { FaUserCircle } from "react-icons/fa";
-import ProductList from "./components/ProductList";
 import { Link, Outlet } from "react-router-dom";
 
 function App() {
@@ -28,15 +27,16 @@ function App() {
         </GridItem>
 
         <Hide below="sm">
-          <GridItem colSpan={{sm: 4, md: 4}}>
+          <GridItem colSpan={{sm: 4, md: 3, lg: 3, xl: 3}}>
             <SearchBar/>
           </GridItem>
         </Hide>
 
-        <GridItem colSpan={{base: 1, sm: 1}}>
-          <Box>
+        <GridItem colSpan={{base: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
+          <HStack>
+            <Link to={"/signin"}><Button size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Login</Button></Link>
             <Link to={"/signup"}><Button size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Sign up</Button></Link>
-          </Box>
+          </HStack>
         </GridItem>
 
         <Show below="sm">
