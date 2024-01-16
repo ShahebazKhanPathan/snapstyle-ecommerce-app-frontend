@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, Button, Heading, SimpleGrid, Spinner } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Navigate, redirect } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ interface Admin{
 
 const AdminLogin = () => {
 
-    const token = localStorage.getItem("auth-token");
+    const token = localStorage.getItem("admin-auth-token");
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Admin>();
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
@@ -23,8 +23,8 @@ const AdminLogin = () => {
         setError('');
         axios.post("http://localhost:3000/api/admin", data) 
             .then(({ data }) => {
+                localStorage.setItem("admin-auth-token", data);
                 setLoader(false);
-                setAlert(data);
             })
             .catch(({ response }) => {
                 setLoader(false);
@@ -45,7 +45,7 @@ const AdminLogin = () => {
                     {alert}
                 </Alert>}
                 <Heading size="lg" mb={4}>Admin - Sign in</Heading>
-                <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+                <form onSubmit={handleSubmit((data) => { onSubmit(data); reset({ userId: "", password: ""})})}>
                         <div className="form-group mb-3">
                                 <label htmlFor="userId" className="label form-label">User ID</label>
                                 <input {...register("userId", { required: "User ID is required.", minLength: { value: 5, message: "User ID must be at least 5 characters long."} })} id="userId" type="text" className="form-control" placeholder="Enter user id" />
