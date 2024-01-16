@@ -10,7 +10,7 @@ const ProductList = () => {
         <>
             <SimpleGrid spacing={4} columns={gridColumns}>
                 {products.map((product) =>
-                <Card>
+                <Card key={product}>
                     <CardBody>
                         <Center>
                             <Image height={imageHeight} src="/image.webp" />

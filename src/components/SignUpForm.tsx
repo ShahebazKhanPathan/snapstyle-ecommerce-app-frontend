@@ -18,14 +18,17 @@ const SignUpForm = () => {
     const [loader, setLoader] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/users").then((res) => console.log(res)).catch((err) => console.log(err));
+        axios.get("http://localhost:3000/api/users")
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
     }, []);
 
     const onSubmit = (data: User) => {
         setLoader(true);
         axios.post("http://localhost:3000/api/users", data)
-            .then(() => {
+            .then(({ data }) => {
                 setLoader(false);
+                localStorage.setItem("auth-token", data);               
                 setAlert('Thank you. You have registered successfully!');
                 reset({ name: "", email: "", mobile: 0, password: "" });
             })

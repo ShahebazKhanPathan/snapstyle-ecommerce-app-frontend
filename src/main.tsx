@@ -1,18 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import { ChakraProvider } from '@chakra-ui/react'
 import theme from './theme.ts'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { ChakraProvider } from '@chakra-ui/react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SignUpForm from './components/SignUpForm.tsx'
 import ProductList from './components/ProductList.tsx'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import SignInForm from './components/SignInForm.tsx'
+import AdminLogin from './components/AdminLogin.tsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App/>,
     errorElement: <div>URL not found</div>,
     children: [
       {
@@ -25,13 +26,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/signin",
-        element: <SignInForm/>
+        element: <SignInForm />
       },
+      {
+        path: "/admin",
+        element: <AdminLogin/>
+      }
     ]
-  },
-  {
-    path: "/login",
-    element: <div>Welcome to login</div>
   }
 ]);
 

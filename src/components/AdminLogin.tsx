@@ -1,29 +1,30 @@
 import { Alert, AlertIcon, Button, Heading, SimpleGrid, Spinner } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import { Navigate, useOutletContext } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
-import { ContextType, useEffect, useState } from "react";
+import { useState } from "react";
 
-interface User{
-    email: String;
+interface Admin{
+    userId: String;
     password: String;
 }
 
-const SignInForm = () => {
+const AdminLogin = () => {
 
     const token = localStorage.getItem("auth-token");
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<User>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<Admin>();
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
 
-    const onSubmit = (data: User) => {
+    const onSubmit = (data: Admin) => {
         setLoader(true);
-        axios.post("http://localhost:3000/api/auth", data) 
+        setAlert('');
+        setError('');
+        axios.post("http://localhost:3000/api/admin", data) 
             .then(({ data }) => {
-                localStorage.setItem("auth-token", data);
                 setLoader(false);
-                window.location.href = "/";
+                setAlert(data);
             })
             .catch(({ response }) => {
                 setLoader(false);
@@ -43,12 +44,12 @@ const SignInForm = () => {
                     <AlertIcon />
                     {alert}
                 </Alert>}
-                <Heading size="lg" mb={4}>Sign In</Heading>
+                <Heading size="lg" mb={4}>Admin - Sign in</Heading>
                 <form onSubmit={handleSubmit((data) => onSubmit(data))}>
                         <div className="form-group mb-3">
-                                <label htmlFor="email" className="label form-label">Email</label>
-                                <input {...register("email", { required: "Email is required.", minLength: { value: 5, message: "Email must be at least 5 characters long."} })} id="email" type="text" className="form-control" placeholder="Enter email" />
-                                {errors.email && <p className="text-danger">{errors.email?.message}</p>}
+                                <label htmlFor="userId" className="label form-label">User ID</label>
+                                <input {...register("userId", { required: "User ID is required.", minLength: { value: 5, message: "User ID must be at least 5 characters long."} })} id="userId" type="text" className="form-control" placeholder="Enter user id" />
+                                {errors.userId && <p className="text-danger">{errors.userId?.message}</p>}
                         </div>
                         <div className="form-group mb-3">
                             <label htmlFor="password" className="label form-label">Password</label>
@@ -67,4 +68,4 @@ const SignInForm = () => {
     
 }
 
-export default SignInForm;
+export default AdminLogin;
