@@ -1,8 +1,8 @@
 import { Alert, AlertIcon, Button, Heading, SimpleGrid, Spinner } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import { Navigate, useOutletContext } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
-import { ContextType, useEffect, useState } from "react";
+import { useState } from "react";
 
 interface User{
     email: String;
@@ -12,9 +12,8 @@ interface User{
 const SignInForm = () => {
 
     const token = localStorage.getItem("auth-token");
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<User>();
+    const { register, handleSubmit, formState: { errors } } = useForm<User>();
     const [error, setError] = useState('');
-    const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
 
     const onSubmit = (data: User) => {
@@ -38,10 +37,6 @@ const SignInForm = () => {
                 {error && <Alert status="error" className="mb-3">
                     <AlertIcon />
                     {error}
-                </Alert>}
-                {alert && <Alert status="success" className="mb-3">
-                    <AlertIcon />
-                    {alert}
                 </Alert>}
                 <Heading size="lg" mb={4}>Sign In</Heading>
                 <form onSubmit={handleSubmit((data) => onSubmit(data))}>

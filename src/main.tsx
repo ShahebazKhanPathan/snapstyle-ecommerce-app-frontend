@@ -9,6 +9,8 @@ import SignUpForm from './components/SignUpForm.tsx'
 import ProductList from './components/ProductList.tsx'
 import SignInForm from './components/SignInForm.tsx'
 import AdminLogin from './components/AdminLogin.tsx'
+import Dashboard from './components/Dashboard.tsx'
+import Products from './components/Products.tsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,17 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminLogin/>
+      }
+    ]
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    errorElement: <div>URL not found.</div>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Products/>
       }
     ]
   }

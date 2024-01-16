@@ -2,7 +2,7 @@ import { Grid, GridItem, Box, Button, Image, Show, Hide, HStack, Menu, MenuButto
 import SearchBar from "./components/SearchBar"
 import CategoryList from "./components/CategoryList"
 import { FaChevronDown, FaUserCircle } from "react-icons/fa";
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

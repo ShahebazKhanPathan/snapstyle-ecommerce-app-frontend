@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, Button, Heading, SimpleGrid, Spinner } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
@@ -63,7 +63,7 @@ const AdminLogin = () => {
     }
     
     else {
-        return <Navigate to={"/"} />
+        return <Navigate to={"/dashboard"} />
     }
     
 }
