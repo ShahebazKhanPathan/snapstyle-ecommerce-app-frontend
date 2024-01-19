@@ -1,13 +1,19 @@
 import { Alert, AlertIcon, Button, Heading, Input, Select, SimpleGrid, Spinner } from "@chakra-ui/react"
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useEffect, useState } from "react";
+
+interface Photo{
+    name: String;
+    size: Number;
+    type: String;
+}
 
 interface Product{
     title: String;
     category: String;
     price: Number;
-    photo: String;
+    photo: Photo[];
     description: String;
 }
 
@@ -18,24 +24,36 @@ const Products = () => {
     const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
 
-    useEffect(() => {
-        axios.get("http://localhost:3000/api/products")
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-    }, []);
-
     const onSubmit = (data: Product) => {
+        const image = data.photo;
+        data = {
+            ...data,
+            title: data.title,
+            category: data.category,
+            price: data.price,
+            description: data.description,
+            photo: [{ name: data.photo[0].name, size: data.photo[0].size, type: data.photo[0].type }]
+        };
         setLoader(true);
-        axios.post("http://localhost:3000/api/products", data)
-            .then(() => {
-                setLoader(false);              
-                setAlert('Product added successfully!');
-                reset({ title: "", category: "", price: 0, photo: "", description: "" });
+        axios.post("http://localhost:3000/api/product", data)
+            .then((res) => {
+                axios.put(
+                    res.data,
+                    image[0],
+                    {
+                        headers: { "Content-Type": `${data.photo[0].type}`}
+                    }
+                )
+                    .then((res) => {
+                        setLoader(false);
+                        setAlert(res.data);
+                    })
+                    .catch((err) => {
+                        setLoader(false);
+                        setError(err.message);
+                    });
             })
-            .catch(({ response }) => {
-                setLoader(false);
-                setError(response.data);
-            });
+            .catch((err) => { setLoader(false); setError(err.message) });
     }
 
     return (
@@ -63,7 +81,7 @@ const Products = () => {
                         {errors.category && <p className="text-danger">{errors.category?.message}</p>}
                     </div>
                     <div className="form-group mb-3">
-                        <Input {...register("price", { required: "Price is required.", minLength: {value: 10, message: "Price must be at least $10"} })} id="price" type="number" placeholder="Price" />
+                        <Input {...register("price", { required: "Price is required.", min: {value: 10, message: "Price must be at least $10"} })} id="price" type="number" placeholder="Price" />
                         {errors.price && <p className="text-danger">{errors.price?.message}</p>}
                     </div>
                     <div className="form-group mb-3">
@@ -71,7 +89,7 @@ const Products = () => {
                         {errors.description && <p className="text-danger">{errors.description?.message}</p>}
                     </div>
                     <div className="form-group mb-3">
-                        <Input {...register("photo", { required: "Photo is required."})} className="form-control" id="photo" type="file" placeholder="Upload photo" />
+                        <Input {...register("photo")} name="photo" className="form-control" id="photo" type="file" />
                         {errors.photo && <p className="text-danger">{errors.photo?.message}</p>}
                     </div>
                     <Button colorScheme="green" type="submit" >Submit</Button>
