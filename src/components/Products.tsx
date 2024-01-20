@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Button, Heading, Input, Select, SimpleGrid, Spinner } from "@chakra-ui/react"
+import { Alert, AlertIcon, Button, Divider, Heading, Input, Select, SimpleGrid, Spinner, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -23,6 +23,23 @@ const Products = () => {
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
+    const [products, setProducts] = useState([]);
+
+    const getProducts = () => {
+        axios.get("http://localhost:3000/api/product")
+            .then((res) => setProducts(res.data))
+            .catch((err) => setError(err.message));
+    }
+
+    const removeProduct = (id: String) => {
+        axios.delete("http://localhost:3000/api/product/" + id)
+            .then(() => getProducts())
+            .catch((err) => setError(err.message));
+    }
+
+    useEffect(() => {
+        getProducts();
+    }, []);
 
     const onSubmit = (data: Product) => {
         const image = data.photo;
@@ -47,6 +64,8 @@ const Products = () => {
                     .then((res) => {
                         setLoader(false);
                         setAlert(res.data);
+                        reset();
+                        getProducts();
                     })
                     .catch((err) => {
                         setLoader(false);
@@ -89,11 +108,39 @@ const Products = () => {
                         {errors.description && <p className="text-danger">{errors.description?.message}</p>}
                     </div>
                     <div className="form-group mb-3">
-                        <Input {...register("photo")} name="photo" className="form-control" id="photo" type="file" />
+                        <Input {...register("photo", { required: "Photo is required."})} name="photo" className="form-control" id="photo" type="file" />
                         {errors.photo && <p className="text-danger">{errors.photo?.message}</p>}
                     </div>
                     <Button colorScheme="green" type="submit" >Submit</Button>
-                </form>
+            </form>
+            <Divider mt="30px"/>
+            <Heading size="lg">Products</Heading>
+            {products.length>0 ? 
+                <TableContainer>
+                    <Table variant="simple">
+                        <Thead>
+                            <Tr>
+                                <Th>Title</Th>
+                                <Th>Category</Th>
+                                <Th>Price</Th>
+                                <Th>Action</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {products.map((product) =>
+                                <Tr key={product._id}>
+                                    <Td>{product.title}</Td>
+                                    <Td>{product.category}</Td>
+                                    <Td>{product.price}</Td>
+                                    <Td><Button onClick={() => removeProduct(product._id)} colorScheme="red" size="sm">Remove</Button></Td>
+                                </Tr>
+                            )}
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+                :
+                <Text>No products added yet.</Text>
+            }
         </SimpleGrid>
     );
 }
