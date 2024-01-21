@@ -1,5 +1,5 @@
 import { Alert, AlertIcon, Button, Divider, Heading, Input, Select, SimpleGrid, Spinner, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -32,6 +32,8 @@ const Products = () => {
     }
 
     const removeProduct = (id: String) => {
+        setAlert("");
+        setError("");
         axios.delete("http://localhost:3000/api/product/" + id)
             .then(() => getProducts())
             .catch((err) => setError(err.message));
@@ -52,18 +54,18 @@ const Products = () => {
             photo: [{ name: data.photo[0].name, size: data.photo[0].size, type: data.photo[0].type }]
         };
         setLoader(true);
+        setAlert("");
+        setError("");
         axios.post("http://localhost:3000/api/product", data)
             .then((res) => {
                 axios.put(
                     res.data,
                     image[0],
-                    {
-                        headers: { "Content-Type": `${data.photo[0].type}`}
-                    }
+                    { headers: { "Content-Type": `${data.photo[0].type}`} }
                 )
-                    .then((res) => {
+                    .then(() => {
                         setLoader(false);
-                        setAlert(res.data);
+                        setAlert("Product added successfully!");
                         reset();
                         getProducts();
                     })
@@ -72,7 +74,10 @@ const Products = () => {
                         setError(err.message);
                     });
             })
-            .catch((err) => { setLoader(false); setError(err.message) });
+            .catch((err) => {
+                setLoader(false);
+                setError(err.message)
+            });
     }
 
     return (
