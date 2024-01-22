@@ -10,6 +10,7 @@ function App() {
 
   const token = localStorage.getItem('auth-token');
   const [isToken, setToken] = useState(Boolean);
+  const buttonSizes = { base: 'xs', sm: 'xs', md: 'sm', lg: 'md' };
 
   const logOut = () => {
     axios.delete("http://localhost:3000/api/blacklist",
@@ -70,7 +71,7 @@ function App() {
             :
             <HStack>
               <Menu>
-                <MenuButton variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown/>}>
+                <MenuButton size={buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown/>}>
                   Login
                 </MenuButton>
                 <MenuList>
@@ -82,7 +83,7 @@ function App() {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <Link to={"/signup"}><Button size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Sign Up</Button></Link>
+              <Link to={"/signup"}><Button size={buttonSizes} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Sign Up</Button></Link>
             </HStack>
           }
         </GridItem>

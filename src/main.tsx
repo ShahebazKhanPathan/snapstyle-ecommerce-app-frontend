@@ -11,6 +11,7 @@ import SignInForm from './components/SignInForm.tsx'
 import AdminLogin from './components/AdminLogin.tsx'
 import Dashboard from './components/Dashboard.tsx'
 import Products from './components/Products.tsx'
+import Product from './components/Product.tsx'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminLogin/>
+      },
+      {
+        path: "/product",
+        element: <Product/>
       }
     ]
   },
