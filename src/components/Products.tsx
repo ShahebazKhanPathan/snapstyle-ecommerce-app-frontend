@@ -23,7 +23,7 @@ const Products = () => {
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<Product[]>([]);
 
     const getProducts = () => {
         axios.get("http://localhost:3000/api/product")

@@ -63,7 +63,7 @@ const AdminLogin = () => {
     }
     
     else {
-        return <Navigate to={"/dashboard"} />
+        return <Navigate to={"/admin/products"} />
     }
     
 }

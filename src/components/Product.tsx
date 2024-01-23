@@ -1,26 +1,50 @@
-import { Box, Button, Center, Divider, HStack, Heading, Image, Input, Select, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Divider, HStack, Heading, Image, Input, SimpleGrid, Text } from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { HiMiniCurrencyDollar  } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
 
+interface Product{
+    title: String;
+    price: String;
+    description: String;
+    photo: {
+        name: String;
+    }
+}
 
 const Product = () => {
     const gridColumns = { base: 2, sm: 3, md: 3, lg: 2, xl: 2 };
     const imageHeight = { base: "100px", md: "200px", lg: "300px", xl: "400px" };
+    const [params, setParams] = useSearchParams();
+    const [product, setProduct] = useState<Product>();
+    const id = params.get("id");
+
+    const getProduct = (id: String | null) => {
+        axios.get("http://localhost:3000/api/product/" + id)
+            .then(({ data }) => setProduct(data))
+            .catch((err) => console.log(err.message));
+    }
+
+    useEffect(() => {
+        getProduct(id);
+    }, []);
 
     return (
         <>
             <SimpleGrid columns={gridColumns} paddingY={2} spacing={2}>
                 <Box>
                     <Center>
-                        <Image height={imageHeight} src="https://snapstyle.s3.us-west-1.amazonaws.com/image.webp"/>
+                        <Image height={imageHeight} src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product?.photo.name} />
                     </Center>
                 </Box>
                 <Box>
-                    <Heading mb={8}>Men's T-shirt</Heading>
+                    <Heading mb={8}>{product?.title}</Heading>
                     <Heading size="md">Description</Heading>
-                    <Text>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio libero, ratione animi vel porro suscipit commodi, alias cum ipsam assumenda dolore? Eligendi sapiente neque dolore quae ad magnam necessitatibus vero.</Text>
+                    <Text textAlign="justify">{product?.description}</Text>
                     <HStack fontSize={20} mb={5}>
-                        <Heading color="#2F855A">$10/-</Heading>
+                        <Heading color="#2F855A">${product?.price}/-</Heading>
                     </HStack>
                     <HStack spacing={5}>
                         <Button colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button>

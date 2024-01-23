@@ -1,6 +1,7 @@
 import { Button, List, ListItem, SimpleGrid } from "@chakra-ui/react";
 import { FaShoppingCart } from "react-icons/fa";
 import { IoPeopleSharp, IoCube } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const AdminSidebar = () => {
 
@@ -12,13 +13,17 @@ const AdminSidebar = () => {
         <SimpleGrid>
             <List spacing={2}>
                 <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant={buttonVariant} leftIcon={<IoCube />}>Products</Button>
+                    <Link to={"/admin/products"}>
+                        <Button fontWeight={fontWeight} size={buttonSizes} variant={buttonVariant} leftIcon={<IoCube />}>Products</Button>
+                    </Link>
                 </ListItem>
                 <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<FaShoppingCart />}>Orders</Button>
+                    <Link to={"/admin/users"}>
+                        <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<IoPeopleSharp/>}>Users</Button>
+                    </Link>
                 </ListItem>
                 <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<IoPeopleSharp />}>Users</Button>
+                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={< FaShoppingCart/>}>Orders</Button>
                 </ListItem>
             </List>
         </SimpleGrid>

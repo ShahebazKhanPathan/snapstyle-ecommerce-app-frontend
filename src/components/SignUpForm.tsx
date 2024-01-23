@@ -30,7 +30,7 @@ const SignUpForm = () => {
                 setLoader(false);
                 localStorage.setItem("auth-token", data);               
                 setAlert('Thank you. You have registered successfully!');
-                reset({ name: "", email: "", mobile: 0, password: "" });
+                reset();
             })
             .catch(({ response }) => {
                 setLoader(false);

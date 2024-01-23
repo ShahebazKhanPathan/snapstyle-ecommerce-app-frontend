@@ -57,7 +57,7 @@ const ProductList = () => {
                 ?
                 <SimpleGrid spacing={4} columns={gridColumns}>
                     {products.map((product) =>
-                    <Link to={"/product"} key={product._id}>
+                    <Link to={"/product?id="+product._id} key={product._id}>
                         <Card>
                             <CardBody>
                                 <Center>
