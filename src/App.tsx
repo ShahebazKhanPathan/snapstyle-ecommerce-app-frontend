@@ -65,8 +65,8 @@ function App() {
           {isToken
             ?
             <HStack>
-              <Link to={"/cart"}><Button size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Cart</Button></Link>
-              <Button onClick={() => logOut()} size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Logout</Button>
+              <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Cart</Button></Link>
+              <Button onClick={() => logOut()} size={buttonSizes} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Logout</Button>
             </HStack>
             :
             <HStack>

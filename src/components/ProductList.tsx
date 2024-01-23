@@ -1,4 +1,4 @@
-import { Card, CardBody, Center, Image, SimpleGrid, Skeleton, Text } from "@chakra-ui/react"
+import { Box, Card, CardBody, Center, HStack, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -57,14 +57,17 @@ const ProductList = () => {
                 ?
                 <SimpleGrid spacing={4} columns={gridColumns}>
                     {products.map((product) =>
-                    <Link to={"/product"}>
-                        <Card key={product._id}>
+                    <Link to={"/product"} key={product._id}>
+                        <Card>
                             <CardBody>
                                 <Center>
                                     <Image height={imageHeight} src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product.photo.name} />
                                 </Center>
-                                <Text mt={2} fontSize={{base: "10px", md: "12px", lg: "16px", xl: "16px" }}>{product.title}</Text>
-                                <Text>Rs. {product.price}/-</Text>
+                                <Text noOfLines={1} mt={3} fontSize={{base: "10px", md: "12px", lg: "18px", xl: "18px" }}>{product.title}</Text>
+                                <Stack direction="row">
+                                    <Heading size={{ base: "xs", md: "xs", lg: "sm", xl: "md" }}>${product.price}</Heading>
+                                    <Text color="green">50% off</Text>
+                                </Stack>
                             </CardBody>
                         </Card>
                     </Link>
