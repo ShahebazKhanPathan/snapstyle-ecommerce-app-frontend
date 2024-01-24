@@ -27,21 +27,6 @@ const CategoryList = () => {
                 <ListItem>
                     <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
                 </ListItem>
-                <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<FaTshirt />}>Fashion</Button>
-                </ListItem>
-                <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
-                </ListItem>
-                <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
-                </ListItem>
-                <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<GiSofa />}>Furniture</Button>
-                </ListItem>
-                <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
-                </ListItem>
             </List>
         </SimpleGrid>
     );

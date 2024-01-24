@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { HiMiniCurrencyDollar  } from "react-icons/hi2";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 interface Product{
     title: String;
@@ -69,27 +69,12 @@ const Product = () => {
                         <Heading color="#2F855A">${product?.price}/-</Heading>
                     </HStack>
                     <HStack spacing={5}>
-                        <Button colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
-                        <Button colorScheme="green" size="sm" leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button>
+                        <Link to={"/cart"}><Button colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button></Link>
+                        <Link to={"/payment?pid="+id}><Button colorScheme="green" size="sm" leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button></Link>
                     </HStack>
                 </Box>
             </SimpleGrid>
             <Divider />
-            <SimpleGrid columns={{base: 1, sm: 1, md: 1, lg: 2, xl: 2}} padding={5} spacing={10}>
-                <Box>
-                    <Heading mb={5} size="md">Credit Card or Debit Card</Heading>
-                    <form>
-                        <div className="form-group mb-3">
-                            <Input type="number" id="card_no" placeholder="Card no."/>
-                        </div>
-                        <HStack mb={5}>
-                            <Input width="70%" type="text" id="expiry_date" placeholder="Expiry date" />
-                            <Input width="30%" type="number" id="cvv" placeholder="CVV"/>
-                        </HStack>
-                        <Button width="20%" size="sm" colorScheme="yellow" type="submit" >Pay</Button>
-                    </form>
-                </Box>
-            </SimpleGrid>
         </>
         
     )

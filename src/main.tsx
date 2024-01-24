@@ -13,6 +13,7 @@ import Dashboard from './components/Dashboard.tsx'
 import Products from './components/Products.tsx'
 import Product from './components/Product.tsx'
 import Users from './components/Users.tsx'
+import Payment from './components/Payment.tsx'
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <Product/>
+      },
+      {
+        path: "/payment",
+        element: <Payment/>
       }
     ]
   },

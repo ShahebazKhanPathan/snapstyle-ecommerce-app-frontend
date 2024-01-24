@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, Button, Heading, SimpleGrid, Spinner } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
@@ -15,6 +15,7 @@ const SignInForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<User>();
     const [error, setError] = useState('');
     const [loader, setLoader] = useState(false);
+    const [params, setParams] = useSearchParams();
 
     const onSubmit = (data: User) => {
         setLoader(true);
@@ -22,7 +23,10 @@ const SignInForm = () => {
             .then(({ data }) => {
                 localStorage.setItem("auth-token", data);
                 setLoader(false);
-                window.location.href = "/";
+                if (params.get('page') == 'payment' && params.get('pid')) {
+                    window.location.href = "/payment?pid="+params.get('pid');
+                }
+                // params.get('page') == "payment" ? history.back() : window.location.href = "/";
             })
             .catch(({ response }) => {
                 setLoader(false);
