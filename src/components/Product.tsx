@@ -1,4 +1,4 @@
-import { Box, Button, Center, Divider, HStack, Heading, Image, Input, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Divider, HStack, Heading, Image, Input, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
@@ -19,12 +19,19 @@ const Product = () => {
     const imageHeight = { base: "100px", md: "200px", lg: "300px", xl: "400px" };
     const [params, setParams] = useSearchParams();
     const [product, setProduct] = useState<Product>();
+    const [loadingSkeleton, setSkeleton] = useState(true);
     const id = params.get("id");
 
     const getProduct = (id: String | null) => {
         axios.get("http://localhost:3000/api/product/" + id)
-            .then(({ data }) => setProduct(data))
-            .catch((err) => console.log(err.message));
+            .then(({ data }) => {
+                setProduct(data);
+                setSkeleton(false);
+            })
+            .catch((err) => {
+                console.log(err.message);
+                setSkeleton(false);
+            });
     }
 
     useEffect(() => {
@@ -33,6 +40,21 @@ const Product = () => {
 
     return (
         <>
+            {loadingSkeleton &&
+                <SimpleGrid columns={gridColumns} paddingY={2} spacing={5}>
+                    <Box>
+                        <Skeleton height={imageHeight}></Skeleton>
+                    </Box>
+                    <Box>
+                        <Skeleton mb={8} height={{ base: "10px", md: "12px", lg: "16px", xl: "36px" }}></Skeleton>
+                        <Skeleton mb={5} height={{ base: "10px", md: "12px", lg: "16px", xl: "24px" }}></Skeleton>
+                        <Skeleton mb={6} height={{ base: "10px", md: "12px", lg: "16px", xl: "200px" }}></Skeleton>
+                        <Skeleton width="70%" mb={5} height={{ base: "10px", md: "12px", lg: "16px", xl: "20px" }}></Skeleton>
+                        <Skeleton width="50%" height={{ base: "10px", md: "12px", lg: "16px", xl: "20px" }}></Skeleton>
+                    </Box>
+                </SimpleGrid>
+            }
+
             <SimpleGrid columns={gridColumns} paddingY={2} spacing={2}>
                 <Box>
                     <Center>

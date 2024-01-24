@@ -1,7 +1,7 @@
 import { Grid, GridItem, Box, Button, Image, Show, Hide, HStack, Menu, MenuButton, MenuList, MenuItem} from "@chakra-ui/react"
 import SearchBar from "./components/SearchBar"
 import CategoryList from "./components/CategoryList"
-import { FaChevronDown, FaUserCircle } from "react-icons/fa";
+import { FaChevronDown, FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -29,7 +29,7 @@ function App() {
       .then(() => setToken(true))
       .catch(() => setToken(false));
     }
-  });
+  }, []);
 
   return (
     <>
@@ -62,11 +62,11 @@ function App() {
         </Hide>
 
         <GridItem colSpan={{base: 1, sm: 1, md: 2, lg: 2, xl: 2}}>
-          {isToken
+          {isToken || null
             ?
             <HStack>
-              <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Cart</Button></Link>
-              <Button onClick={() => logOut()} size={buttonSizes} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Logout</Button>
+              <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaShoppingCart />} variant="ghost" colorScheme="green">Cart</Button></Link>
+              <Button onClick={() => logOut()} size={buttonSizes} leftIcon={<FaUserCircle />} variant="ghost" colorScheme="green">Logout</Button>
             </HStack>
             :
             <HStack>
