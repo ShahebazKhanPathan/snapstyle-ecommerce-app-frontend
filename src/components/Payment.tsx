@@ -13,14 +13,27 @@ interface Product{
     }
 }
 
-interface Customer{
-    name: String;
-    email: String;
-    mobile: Number;
-    address: String;
-    cardNo: Number;
-    expiry: String;
-    cvvNo: Number
+interface Order{
+    user: {
+        name: String;
+        email: String;
+        mobile: Number;
+        address: String;
+    };
+    product: {
+        pId: String | null;
+        pTitle: String;
+        pImage: String;
+        pPrice: Number;
+        pTaxes: Number;
+        pShippingCharges: Number;
+        pTotal: Number;
+    };
+    card: {
+        cardNo: Number;
+        expiry: String;
+        cvvNo: Number
+    }
 }
 
 const Payment = () => {
@@ -36,10 +49,10 @@ const Payment = () => {
     const [price, setPrice] = useState(0);
     const [taxes, setTaxes] = useState(0);
     const [total, setTotal] = useState(0);
-    const id = params.get("pid");
+    const id = params.get("pid") ? params.get("pid") : '';
     const shippingCharges = 1;
 
-    const { handleSubmit, register, reset, formState: { errors } } = useForm<Customer>();
+    const { handleSubmit, register, reset, formState: { errors } } = useForm<Order>();
 
     const getProduct = (id: String | null) => {
         axios.get("http://localhost:3000/api/product/" + id)
@@ -56,13 +69,35 @@ const Payment = () => {
             });
     }
 
-    const onSubmit = (data: Customer) => {
+    const onSubmit = (data: Order) => {
+        data = {
+            user: {
+                name: data.user.name,
+                email: data.user.email,
+                mobile: data.user.mobile,
+                address: data.user.address
+            },
+            product: {
+                pId: id,
+                pTitle: product?.title,
+                pImage: product?.photo.name,
+                pPrice: price,
+                pTaxes: taxes.toFixed(2),
+                pShippingCharges: shippingCharges.toFixed(2),
+                pTotal: total.toFixed(2)
+            }
+        };
+
         axios.post(
-            "http://localhost:3000/order",
+            "http://localhost:3000/api/order",
             data,
             { headers: { "auth-token": token } }
-        ).then(({ data }) => console.log(data))
-            .catch((err) => console.log(err.message));
+        ).then(({ data }) => {
+            reset();
+            console.log(data);
+        }).catch((err) => {
+            console.log(err.message)
+        });
     }
 
     useEffect(() => {
@@ -92,24 +127,24 @@ const Payment = () => {
                         <Heading mb={5}>Payment</Heading>
                         <div className="form-group mb-3">
                             <label htmlFor="name" className="label form-label">Name:</label>
-                            <Input {...register("name", { required: "Name is required.", minLength: { value: 5, message: "Name must be atleast 5 characters long." } })} type="text" id="name" placeholder="Enter name" />
-                            {errors.name && <p className="text-danger">{errors.name.message}</p>}
+                            <Input {...register("user.name", { required: "Name is required.", minLength: { value: 5, message: "Name must be atleast 5 characters long." } })} type="text" id="name" placeholder="Enter name" />
+                            {errors.user?.name && <p className="text-danger">{errors.user?.name.message}</p>}
                         </div>
                         <div className="form-group mb-3">
                             <label htmlFor="email" className="label form-label">Email:</label>
-                            <Input {...register("email", { required: "Email is required.", minLength: { value: 5, message: "Email must be at least 5 characters long."} })} type="text" id="email" placeholder="Enter email" />
-                            {errors.email && <p className="text-danger">{errors.email.message}</p>}
+                            <Input {...register("user.email", { required: "Email is required.", minLength: { value: 5, message: "Email must be at least 5 characters long."} })} type="text" id="email" placeholder="Enter email" />
+                            {errors.user?.email && <p className="text-danger">{errors.user?.email.message}</p>}
 
                         </div>
                         <div className="form-group mb-3">
                             <label htmlFor="mobile" className="label form-label">Mobile No:</label>
-                            <Input {...register("mobile", { required: "Mobile is required.", minLength: {value: 10, message: "Mobile no must be 10 digits."} })} type="number" id="mobile" placeholder="Enter mobile no." />
-                            {errors.mobile && <p className="text-danger">{errors.mobile.message}</p>}
+                            <Input {...register("user.mobile", { required: "Mobile is required.", minLength: {value: 10, message: "Mobile no must be 10 digits."} })} type="number" id="mobile" placeholder="Enter mobile no." />
+                            {errors.user?.mobile && <p className="text-danger">{errors.user?.mobile.message}</p>}
                         </div>
                         <div className="form-group mb-3">
                             <label htmlFor="address" className="label form-label">Shipping Address:</label>
-                            <Textarea {...register("address", { required: "Shipping address is required.", minLength: {value: 10, message: "Address must be at least 10 characters long."} })} id="address" placeholder="Enter full address" />
-                            {errors.address && <p className="text-danger">{errors.address.message}</p>}
+                            <Textarea {...register("user.address", { required: "Shipping address is required.", minLength: {value: 10, message: "Address must be at least 10 characters long."} })} id="address" placeholder="Enter full address" />
+                            {errors.user?.address && <p className="text-danger">{errors.user?.address.message}</p>}
                         </div>
                     </Box>
                     <Box>
@@ -138,12 +173,12 @@ const Payment = () => {
                                     <Heading size="md" textAlign="right">${total.toFixed(2)}</Heading>
                                 </HStack>
                                 <div className="form-group mb-3">
-                                    <Input {...register("cardNo", { required: "Card No. is required.", minLength: {value: 12, message: "Card no must be 12 digits."} })} type="number" id="cardNo" placeholder="Card no." />
-                                    {errors.cardNo && <p className="text-danger">{errors.cardNo.message}</p>}
+                                    <Input {...register("card.cardNo", { required: "Card No. is required.", minLength: {value: 12, message: "Card no must be 12 digits."} })} type="number" id="cardNo" placeholder="Card no." />
+                                    {errors.card?.cardNo && <p className="text-danger">{errors.card?.cardNo.message}</p>}
                                 </div>
                                 <HStack mb={5}>
-                                    <Input {...register("expiry", { required: true, minLength: { value: 5, message: "Date must be like 01/23" } })} width="70%" type="text" id="expiry" placeholder="Expiry date" />
-                                    <Input {...register("cvvNo", { required: true, minLength: { value: 3, message: "CVV 3 digits required" } })} width="30%" type="number" id="cvvNo" placeholder="CVV" />
+                                    <Input {...register("card.expiry", { required: true, minLength: { value: 5, message: "Date must be like 01/23" } })} width="70%" type="text" id="expiry" placeholder="Expiry date" />
+                                    <Input {...register("card.cvvNo", { required: true, minLength: { value: 3, message: "CVV 3 digits required" } })} width="30%" type="number" id="cvvNo" placeholder="CVV" />
                                 </HStack>
                                 <Button width="20%" size="sm" colorScheme="yellow" type="submit" >Pay</Button>
                             </CardBody>
