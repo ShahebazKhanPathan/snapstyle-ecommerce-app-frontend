@@ -1,6 +1,7 @@
 import { Heading, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 interface User{
     _id: String;
@@ -11,6 +12,9 @@ interface User{
 
 const Users = () => {
 
+    const token = localStorage.getItem("admin-auth-token");
+    if (!token) return <Navigate to={"/"} />;
+    
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);

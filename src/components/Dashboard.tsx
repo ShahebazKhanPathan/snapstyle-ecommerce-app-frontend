@@ -1,7 +1,7 @@
 import { Grid, GridItem, Box, Button, Image, Show, Hide, HStack, Menu, MenuButton, MenuList, MenuItem} from "@chakra-ui/react"
 import AdminSidebar from "./AdminSidebar";
 import SearchBar from "./SearchBar";
-import { FaChevronDown, FaUserCircle } from "react-icons/fa";
+import { FaChevronDown, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -15,9 +15,9 @@ function Dashboard() {
 
     const logOut = () => {
         axios.delete("http://localhost:3000/api/blacklist",
-        { headers: { "auth-token": localStorage.getItem('auth-token') } })
+        { headers: { "admin-auth-token": localStorage.getItem('admin-auth-token') } })
         .then(() => {
-            localStorage.removeItem("auth-token");
+            localStorage.removeItem("admin-auth-token");
             setToken(false);
             window.location.href="/";
         })
@@ -51,7 +51,7 @@ function Dashboard() {
             <GridItem colSpan={{base: 4, sm: 1, md: 1}}>
             <Box width={{ base: "160px", sm: "160px", md: "160px", lg: "220px" }}>
                 <Link to={"/"}>
-                <Image src="/logo.png"/>
+                    <Image src="/logo.png"/>
                 </Link>
             </Box>
             </GridItem>
@@ -66,8 +66,7 @@ function Dashboard() {
             {isToken
                 ?
                 <HStack>
-                <Link to={"/cart"}><Button size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Cart</Button></Link>
-                <Button onClick={() => logOut()} size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Logout</Button>
+                    <Button onClick={() => logOut()} size={{ base: 'xs', sm: 'xs', md: 'sm', lg: 'md' }} leftIcon={<FaSignOutAlt />} variant="ghost" colorScheme="green">Logout</Button>
                 </HStack>
                 :
                 <HStack>

@@ -1,7 +1,9 @@
 import { Grid, GridItem, Box, Button, Image, Show, Hide, HStack, Menu, MenuButton, MenuList, MenuItem} from "@chakra-ui/react"
 import SearchBar from "./components/SearchBar"
 import CategoryList from "./components/CategoryList"
-import { FaChevronDown, FaUserCircle, FaShoppingCart } from "react-icons/fa";
+import { FaChevronDown, FaUserCircle, FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { IoCube } from "react-icons/io5";
 import { Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -66,7 +68,21 @@ function App() {
             ?
             <HStack>
               <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaShoppingCart />} variant="ghost" colorScheme="green">Cart</Button></Link>
-              <Button onClick={() => logOut()} size={buttonSizes} leftIcon={<FaUserCircle />} variant="ghost" colorScheme="green">Logout</Button>
+              <Menu>
+                <MenuButton variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown />}>
+                  My account
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>
+                    <Link to={"/orders"}>
+                      <Button leftIcon={<IoCube />} variant="ghost" colorScheme="green">My Orders</Button>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button onClick={() => logOut()} size={buttonSizes} leftIcon={<FaSignOutAlt />} variant="ghost" colorScheme="green">Logout</Button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </HStack>
             :
             <HStack>
@@ -76,10 +92,14 @@ function App() {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <Link to={"/admin"}>Admin</Link>
+                    <Link to={"/admin"}>
+                      <Button leftIcon={<MdAdminPanelSettings />} variant="ghost" colorScheme="green">Admin</Button>
+                    </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link to={"/signin"}>User</Link>
+                    <Link to={"/signin"}>
+                      <Button leftIcon={<FaUserCircle />} variant="ghost" colorScheme="green">User</Button>
+                    </Link>
                   </MenuItem>
                 </MenuList>
               </Menu>

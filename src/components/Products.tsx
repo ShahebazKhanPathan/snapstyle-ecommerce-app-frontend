@@ -2,6 +2,7 @@ import { Alert, AlertIcon, Button, Divider, Heading, Input, Select, SimpleGrid, 
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 interface Photo{
     name: String;
@@ -18,6 +19,9 @@ interface Product{
 }
 
 const Products = () => {
+
+    const token = localStorage.getItem("admin-auth-token");
+    if (!token) return <Navigate to={"/"} />;
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Product>();
     const [error, setError] = useState('');

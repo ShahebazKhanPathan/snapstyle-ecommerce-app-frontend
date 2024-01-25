@@ -14,6 +14,7 @@ import Products from './components/Products.tsx'
 import Product from './components/Product.tsx'
 import Users from './components/Users.tsx'
 import Payment from './components/Payment.tsx'
+import MyOrders from './components/MyOrders.tsx'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/payment",
         element: <Payment/>
+      },
+      {
+        path: "/orders",
+        element: <MyOrders/>
       }
     ]
   },

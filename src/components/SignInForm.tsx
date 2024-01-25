@@ -24,9 +24,11 @@ const SignInForm = () => {
                 localStorage.setItem("auth-token", data);
                 setLoader(false);
                 if (params.get('page') == 'payment' && params.get('pid')) {
-                    window.location.href = "/payment?pid="+params.get('pid');
+                    location.href = "/payment?pid="+params.get('pid');
                 }
-                // params.get('page') == "payment" ? history.back() : window.location.href = "/";
+                else {
+                    location.href = "/";
+                }
             })
             .catch(({ response }) => {
                 setLoader(false);
