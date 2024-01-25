@@ -15,6 +15,7 @@ import Product from './components/Product.tsx'
 import Users from './components/Users.tsx'
 import Payment from './components/Payment.tsx'
 import MyOrders from './components/MyOrders.tsx'
+import Orders from './components/Orders.tsx'
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/users",
         element: <Users/>
+      },
+      {
+        path: "/admin/orders",
+        element: <Orders/>
       }
     ]
   }

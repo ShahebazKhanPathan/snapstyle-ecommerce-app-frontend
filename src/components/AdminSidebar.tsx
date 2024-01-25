@@ -23,7 +23,9 @@ const AdminSidebar = () => {
                     </Link>
                 </ListItem>
                 <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={< FaShoppingCart/>}>Orders</Button>
+                    <Link to={"/admin/orders"}>
+                        <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={< FaShoppingCart/>}>Orders</Button>
+                    </Link>
                 </ListItem>
             </List>
         </SimpleGrid>

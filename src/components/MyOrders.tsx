@@ -50,18 +50,26 @@ const MyOrders = () => {
                                 <GridItem colSpan={3}>
                                     <Text>Order ID: {order._id}</Text>
                                     <Text fontWeight={700}>{order.title}</Text>
+                                    <div>
+                                        {order.userName} <br />
+                                        {order.email} <br />
+                                        {order.mobile} <br />
+                                        {order.address} <br />
+                                    </div>
+                                    <br />
+                                    <Text>Date: {order.date.substring(0,24)}</Text>
                                 </GridItem>
                                 <GridItem colSpan={1}>
-                                    <Image height="100px" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image} />
+                                    <Image height="150px" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image} />
                                 </GridItem>
                                 <GridItem colSpan={2}>
                                     <Card>
-                                        <CardHeader fontWeight={500}>Payment</CardHeader>
                                         <CardBody>
-                                            <Text>Price: ${order.price}</Text>
-                                            <Text>Taxes: ${order.taxes}</Text>
-                                            <Text>Shipping charges: ${order.shippingCharges}</Text>
-                                            <Text>Total: ${order.total}</Text>
+                                            <Text fontWeight={700}>Payment details</Text>
+                                            Price: ${order.price} <br />
+                                            Taxes: ${order.taxes} <br />
+                                            Shipping charges: ${order.shippingCharges}
+                                            <Text mt={3} fontWeight={700} fontSize="20px">Total: ${order.total}</Text>
                                         </CardBody>
                                     </Card>
                                 </GridItem>

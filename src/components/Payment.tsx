@@ -84,7 +84,7 @@ const Payment = () => {
         };
         setSpinner(true);
         axios.post(
-            "http://localhost:3000/api/order",
+            "http://localhost:3000/api/orders",
             data,
             { headers: { "auth-token": token } }
         ).then(({ data }) => {
