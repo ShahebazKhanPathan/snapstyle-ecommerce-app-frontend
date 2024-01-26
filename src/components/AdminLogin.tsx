@@ -53,7 +53,7 @@ const AdminLogin = () => {
                         </div>
                         <div className="form-group mb-3">
                             <label htmlFor="password" className="label form-label">Password</label>
-                            <input {...register("password", { required: "Password is required.", minLength: { value: 8, message: "Password must be at least 8 characters long." } })} id="password" type="text" className="form-control" placeholder="Enter password" />
+                            <input {...register("password", { required: "Password is required.", minLength: { value: 8, message: "Password must be at least 8 characters long." } })} id="password" type="password" className="form-control" placeholder="Enter password" />
                             {errors.password && <p className="text-danger">{errors.password?.message}</p>}
                         </div>
                         <Button colorScheme="green" type="submit" >Login</Button>

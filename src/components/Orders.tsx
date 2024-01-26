@@ -1,4 +1,4 @@
-import { Heading, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
+import { Heading, Image, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -40,9 +40,9 @@ const Orders = () => {
                         <Thead>
                             <Tr>
                                 <Th>Sr. no.</Th>
-                                <Th>Name</Th>
-                                <Th>Email</Th>
-                                <Th>Mobile</Th>
+                                <Th>User info</Th>
+                                <Th>Product info</Th>
+                                <Th>Photo</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
@@ -51,9 +51,24 @@ const Orders = () => {
                                 return (
                                     <Tr key={srNo}>
                                         <Td>{srNo}</Td>
-                                        <Td>{order.userName}</Td>
-                                        <Td>{order.email}</Td>
-                                        <Td>{order.mobile}</Td>
+                                        <Td>
+                                            {order.userName} <br />
+                                            {order.email} <br />
+                                            {order.mobile} <br />
+                                            {order.address}
+                                        </Td>
+                                        <Td>
+                                            <Text fontWeight={600}>{order.title}</Text>
+                                            Order ID: {order._id} <br />
+                                            Order Date: {order.date.substring(0,24)} <br /><br />
+                                            Price: ${order.price} <br />
+                                            Taxes: ${order.taxes} <br />
+                                            Shipping charges: ${order.shippingCharges}
+                                            <Text mt={3} fontSize="18px" fontWeight={500}>Bill: ${order.total}</Text>
+                                        </Td>
+                                        <Td>
+                                            <Image height="80px" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image} />
+                                        </Td>
                                     </Tr>);
                                 }
                             )}
