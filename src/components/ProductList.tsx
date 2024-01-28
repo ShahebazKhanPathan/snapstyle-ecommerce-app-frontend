@@ -17,7 +17,7 @@ const ProductList = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loadingSkeleton, setSkeleton] = useState(true);
     const noProductsLabel = "";
-    const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "120px" };
+    const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "250px" };
     const gridColumns = { base: 2, sm: 3, md: 3, lg: 3, xl: 4 };
     const skeletons = [1, 2, 3, 4];
 

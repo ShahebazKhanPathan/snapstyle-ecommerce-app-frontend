@@ -105,6 +105,9 @@ const Products = () => {
                         <Select {...register("category", { required: "Category is must"})} id="category" placeholder="Select category">
                             <option value="Fashion">Fashion</option>
                             <option value="Electronics">Electronics</option>
+                            <option value="Appliances">Appliances</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Toys">Toys</option>
                         </Select>
                         {errors.category && <p className="text-danger">{errors.category?.message}</p>}
                     </div>

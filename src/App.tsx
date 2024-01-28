@@ -132,7 +132,7 @@ function App() {
           </GridItem>
         </Show>
 
-        <GridItem colSpan={{ base: 5, sm: 5, md: 5, lg: 4, xl: 4}}>
+        <GridItem colSpan={{ base: 5, sm: 5, md: 5, lg: 4, xl: 4 }}>
           <Outlet />
         </GridItem>
       </Grid>

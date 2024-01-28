@@ -18,6 +18,7 @@ import MyOrders from './components/MyOrders.tsx'
 import Orders from './components/Orders.tsx'
 import Category from './components/Category.tsx'
 import Cart from './components/Cart.tsx'
+import SearchResults from './components/SearchResults.tsx'
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart/>
+      },
+      {
+        path: "/search",
+        element: <SearchResults/>
       }
     ]
   },
