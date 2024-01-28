@@ -1,4 +1,4 @@
-import { Box, Button, Center, Divider, HStack, Heading, Image, Input, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Divider, HStack, Heading, Image, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
@@ -20,7 +20,7 @@ const Product = () => {
     const [params, setParams] = useSearchParams();
     const [product, setProduct] = useState<Product>();
     const [loadingSkeleton, setSkeleton] = useState(true);
-    const id = params.get("id");
+    const id = params.get("pid");
 
     const getProduct = (id: String | null) => {
         axios.get("http://localhost:3000/api/product/" + id)
@@ -32,6 +32,20 @@ const Product = () => {
                 console.log(err.message);
                 setSkeleton(false);
             });
+    }
+
+    const addtoCart = () => {
+        if (!localStorage.getItem("auth-token")) return location.href = "/signin?page=product&pid=" + id;
+        
+        axios.post(
+            "http://localhost:3000/api/cart",
+            { pId: id },
+            { headers: { "auth-token": localStorage.getItem("auth-token")}}
+        ).then(({ data }) => {
+            console.log(data);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     useEffect(() => {
@@ -55,10 +69,10 @@ const Product = () => {
                 </SimpleGrid>
             }
 
-            <SimpleGrid columns={gridColumns} paddingY={2} spacing={2}>
+            <SimpleGrid columns={gridColumns} paddingY={2} spacing={5}>
                 <Box>
                     <Center>
-                        <Image height={imageHeight} src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product?.photo.name} />
+                        <Image boxSize="400px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product?.photo.name} />
                     </Center>
                 </Box>
                 <Box>
@@ -69,7 +83,7 @@ const Product = () => {
                         <Heading color="#2F855A">${product?.price}/-</Heading>
                     </HStack>
                     <HStack spacing={5}>
-                        <Link to={"/cart"}><Button colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button></Link>
+                        <Button onClick={() => addtoCart()} colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
                         <Link to={"/payment?pid="+id}><Button colorScheme="green" size="sm" leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button></Link>
                     </HStack>
                 </Box>

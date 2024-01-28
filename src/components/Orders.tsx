@@ -42,7 +42,7 @@ const Orders = () => {
                                 <Th>Sr. no.</Th>
                                 <Th>User info</Th>
                                 <Th>Product info</Th>
-                                <Th>Photo</Th>
+                                <Th>Product photo</Th>
                             </Tr>
                         </Thead>
                         <Tbody>

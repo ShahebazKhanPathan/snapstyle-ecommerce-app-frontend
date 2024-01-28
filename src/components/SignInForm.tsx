@@ -26,6 +26,9 @@ const SignInForm = () => {
                 if (params.get('page') == 'payment' && params.get('pid')) {
                     location.href = "/payment?pid="+params.get('pid');
                 }
+                else if (params.get('page') == 'product' && params.get('pid')) {
+                    location.href = "/product?pid="+params.get('pid');
+                }
                 else {
                     location.href = "/";
                 }

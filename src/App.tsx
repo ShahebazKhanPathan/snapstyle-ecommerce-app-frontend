@@ -1,4 +1,4 @@
-import { Grid, GridItem, Box, Button, Image, Show, Hide, HStack, Menu, MenuButton, MenuList, MenuItem} from "@chakra-ui/react"
+import { Grid, GridItem, Box, Button, Image, Show, Hide, HStack, Menu, MenuButton, MenuList, MenuItem, Badge} from "@chakra-ui/react"
 import SearchBar from "./components/SearchBar"
 import CategoryList from "./components/CategoryList"
 import { FaChevronDown, FaUserCircle, FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
@@ -67,7 +67,7 @@ function App() {
           {isToken || null
             ?
             <HStack>
-              <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaShoppingCart />} variant="ghost" colorScheme="green">Cart</Button></Link>
+              <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaShoppingCart />} rightIcon={<Badge colorScheme="red">1</Badge>} variant="ghost" colorScheme="green">Cart</Button></Link>
               <Menu>
                 <MenuButton variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown />}>
                   My account
@@ -103,7 +103,7 @@ function App() {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <Link to={"/signup"}><Button size={buttonSizes} leftIcon={<FaUserCircle />} variant="outline" colorScheme="green">Sign Up</Button></Link>
+              <Link to={"/signup"}><Button size={buttonSizes} leftIcon={<FaUserCircle />} variant="ghost" colorScheme="green">Sign Up</Button></Link>
             </HStack>
           }
         </GridItem>

@@ -1,7 +1,7 @@
-import { Card, CardBody, Center, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
+import { Box, Card, CardBody, Center, HStack, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 interface Product{
     title: String,
@@ -12,20 +12,23 @@ interface Product{
     }
 }
 
-const ProductList = () => {
+const Category = () => {
 
     const [products, setProducts] = useState<Product[]>([]);
     const [loadingSkeleton, setSkeleton] = useState(true);
+    const [params, setParams] = useSearchParams();
     const noProductsLabel = "";
-    const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "120px" };
+    const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "250px" };
     const gridColumns = { base: 2, sm: 3, md: 3, lg: 3, xl: 4 };
     const skeletons = [1, 2, 3, 4];
 
     const getProducts = () => {
-        axios.get("http://localhost:3000/api/product")
-            .then((res) => {
+        setProducts([]);
+        setSkeleton(true);
+        axios.get("http://localhost:3000/api/product/category/"+params.get("name"))
+            .then(({ data }) => {
                 setSkeleton(false);
-                setProducts(res.data)
+                setProducts(data)
             })
             .catch((err) => {
                 setSkeleton(false);
@@ -35,8 +38,8 @@ const ProductList = () => {
 
     useEffect(() => {
         getProducts();
-    }, []);
-
+    }, [params]);
+    
     return (
         <>
             {loadingSkeleton &&
@@ -82,4 +85,4 @@ const ProductList = () => {
     );
 }
 
-export default ProductList;
+export default Category;

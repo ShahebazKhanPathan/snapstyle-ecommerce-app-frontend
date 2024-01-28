@@ -2,6 +2,7 @@ import { Button, List, ListItem, SimpleGrid } from "@chakra-ui/react";
 import { GiWashingMachine, GiSofa } from "react-icons/gi";
 import { FaTshirt, FaLaptop } from "react-icons/fa";
 import { MdToys } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const CategoryList = () => {
 
@@ -13,10 +14,19 @@ const CategoryList = () => {
         <SimpleGrid>
             <List spacing={2}>
                 <ListItem>
-                    <Button fontWeight={fontWeight} size={buttonSizes} variant={buttonVariant} leftIcon={<FaTshirt />}>Fashion</Button>
+                    <Link to={"/"}>
+                        <Button fontWeight={fontWeight} size={buttonSizes} variant={buttonVariant} leftIcon={<FaTshirt />}>All</Button>
+                    </Link>
                 </ListItem>
                 <ListItem>
+                    <Link to={"/category?name=Fashion"}>
+                        <Button fontWeight={fontWeight} size={buttonSizes} variant={buttonVariant} leftIcon={<FaTshirt />}>Fashion</Button>
+                    </Link>
+                </ListItem>
+                <ListItem>
+                    <Link to={"/category?name=Electronics"}>
                     <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
+                    </Link>
                 </ListItem>
                 <ListItem>
                     <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
