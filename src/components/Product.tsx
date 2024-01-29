@@ -69,26 +69,30 @@ const Product = () => {
                 </SimpleGrid>
             }
 
-            <SimpleGrid columns={gridColumns} paddingY={2} spacing={5}>
-                <Box>
-                    <Center>
-                        <Image boxSize="400px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product?.photo.name} />
-                    </Center>
-                </Box>
-                <Box>
-                    <Heading mb={8}>{product?.title}</Heading>
-                    <Heading size="md">Description</Heading>
-                    <Text textAlign="justify">{product?.description}</Text>
-                    <HStack fontSize={20} mb={5}>
-                        <Heading color="#2F855A">${product?.price}/-</Heading>
-                    </HStack>
-                    <HStack spacing={5}>
-                        <Button onClick={() => addtoCart()} colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
-                        <Link to={"/payment?pid="+id}><Button colorScheme="green" size="sm" leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button></Link>
-                    </HStack>
-                </Box>
-            </SimpleGrid>
-            <Divider />
+            {product && 
+                <>
+                <SimpleGrid columns={gridColumns} paddingY={2} spacing={5}>
+                    <Box>
+                        <Center>
+                            <Image boxSize="400px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product?.photo.name} />
+                        </Center>
+                    </Box>
+                    <Box>
+                        <Heading mb={8}>{product?.title}</Heading>
+                        <Heading size="md">Description</Heading>
+                        <Text textAlign="justify">{product?.description}</Text>
+                        <HStack fontSize={20} mb={5}>
+                            <Heading color="#2F855A">${product?.price}/-</Heading>
+                        </HStack>
+                        <HStack spacing={5}>
+                            <Button onClick={() => addtoCart()} colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
+                            <Link to={"/payment?pid="+id}><Button colorScheme="green" size="sm" leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button></Link>
+                        </HStack>
+                    </Box>
+                </SimpleGrid>
+                <Divider />
+                </>
+            }
         </>
         
     )
