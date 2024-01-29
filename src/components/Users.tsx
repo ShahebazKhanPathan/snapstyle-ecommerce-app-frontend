@@ -15,16 +15,13 @@ const Users = () => {
     const token = localStorage.getItem("admin-auth-token");
     if (!token) return <Navigate to={"/"} />;
     
-    const [error, setError] = useState('');
-    const [alert, setAlert] = useState('');
-    const [loader, setLoader] = useState(false);
     const [users, setUsers] = useState<User[]>([]);
     let srNo = 0;
 
     const getUsers = () => {
         axios.get("http://localhost:3000/api/users")
             .then((res) => setUsers(res.data))
-            .catch((err) => setError(err.message));
+            .catch((err) => console.log(err.message));
     }
 
     useEffect(() => {

@@ -1,50 +1,64 @@
-import { Box, Button, Center, Divider, HStack, Heading, Image, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Center, Divider, HStack, Heading, Image, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { HiMiniCurrencyDollar  } from "react-icons/hi2";
 import { Link, useSearchParams } from "react-router-dom";
 
-interface Product{
-    title: String;
-    price: String;
-    description: String;
+export interface Product{
+    title: string;
+    price: number;
+    description: string;
     photo: {
-        name: String;
+        name: string;
     }
 }
 
 const Product = () => {
     const gridColumns = { base: 2, sm: 3, md: 3, lg: 2, xl: 2 };
     const imageHeight = { base: "100px", md: "200px", lg: "300px", xl: "400px" };
-    const [params, setParams] = useSearchParams();
+    const [params] = useSearchParams();
     const [product, setProduct] = useState<Product>();
     const [loadingSkeleton, setSkeleton] = useState(true);
+    const [loader, setLoader] = useState(false);
+    const [alert, setAlert] = useState(false);
+    const [error, setError] = useState('');
     const id = params.get("pid");
 
-    const getProduct = (id: String | null) => {
+    const getProduct = (id: string | null) => {
         axios.get("http://localhost:3000/api/product/" + id)
             .then(({ data }) => {
                 setProduct(data);
                 setSkeleton(false);
             })
             .catch((err) => {
-                console.log(err.message);
                 setSkeleton(false);
+                console.log(err.message);
             });
     }
 
     const addtoCart = () => {
+
         if (!localStorage.getItem("auth-token")) return location.href = "/signin?page=product&pid=" + id;
+        setLoader(true);
         
         axios.post(
             "http://localhost:3000/api/cart",
             { pId: id },
             { headers: { "auth-token": localStorage.getItem("auth-token")}}
-        ).then(({ data }) => {
-            console.log(data);
-        }).catch((err) => {
-            console.log(err);
+        ).then(() => {
+            setLoader(false);
+            setAlert(true);
+            setTimeout(() => {
+                setAlert(false);
+            }, 4000);
+        })
+        .catch((err) => {
+            setLoader(false);
+            setError(err.message);
+            setTimeout(() => {
+                setError('');
+            }, 4000);
         })
     }
 
@@ -71,6 +85,20 @@ const Product = () => {
 
             {product && 
                 <>
+                {alert &&
+                    <Alert status="success">
+                        <AlertIcon />
+                        <AlertTitle>Added into cart successfully!</AlertTitle>
+                        <AlertDescription>Check your cart.</AlertDescription>
+                    </Alert>
+                }
+                {error &&
+                    <Alert status="error">
+                        <AlertIcon />
+                        <AlertTitle>Error:</AlertTitle>
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                }
                 <SimpleGrid columns={gridColumns} paddingY={2} spacing={5}>
                     <Box>
                         <Center>
@@ -85,7 +113,7 @@ const Product = () => {
                             <Heading color="#2F855A">${product?.price}/-</Heading>
                         </HStack>
                         <HStack spacing={5}>
-                            <Button onClick={() => addtoCart()} colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
+                            <Button isLoading={loader} onClick={() => addtoCart()} colorScheme="yellow" size="sm" leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
                             <Link to={"/payment?pid="+id}><Button colorScheme="green" size="sm" leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button></Link>
                         </HStack>
                     </Box>

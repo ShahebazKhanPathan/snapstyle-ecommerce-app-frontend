@@ -5,17 +5,18 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 interface Photo{
-    name: String;
+    name: string;
     size: Number;
-    type: String;
+    type: string;
 }
 
 interface Product{
-    title: String;
-    category: String;
-    price: Number;
+    _id: string;
+    title: string;
+    category: string;
+    price: number;
     photo: Photo[];
-    description: String;
+    description: string;
 }
 
 const Products = () => {

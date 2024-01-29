@@ -2,29 +2,20 @@ import { Heading, Image, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th,
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-
-interface User{
-    _id: String;
-    name: String;
-    email: String;
-    mobile: String;
-}
+import { Info } from "./MyOrders";
 
 const Orders = () => {
 
     const token = localStorage.getItem("admin-auth-token");
     if (!token) return <Navigate to={"/"} />;
     
-    const [error, setError] = useState('');
-    const [alert, setAlert] = useState('');
-    const [loader, setLoader] = useState(false);
-    const [orders, setOrders] = useState<User[]>([]);
+    const [orders, setOrders] = useState<Info[]>([]);
     let srNo = 0;
 
     const getOrders = () => {
         axios.get("http://localhost:3000/api/orders/admin", { headers: { "admin-auth-token": token }})
             .then(({ data }) => setOrders(data))
-            .catch((err) => setError(err.message));
+            .catch((err) => console.log(err.message));
     }
 
     useEffect(() => {

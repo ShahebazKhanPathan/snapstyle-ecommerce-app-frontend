@@ -9,7 +9,7 @@ const SearchBar = () => {
 
     const onSearch = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
-            navigate("/search?query=" + event.target.value);
+            navigate("/search?query=" + (event.target as HTMLInputElement).value);
         }
     }
 

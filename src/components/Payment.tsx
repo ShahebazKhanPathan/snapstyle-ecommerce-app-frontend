@@ -3,38 +3,30 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useSearchParams } from "react-router-dom";
-
-interface Product{
-    title: String;
-    price: Number;
-    description: String;
-    photo: {
-        name: String;
-    }
-}
+import { Product } from "./Product";
 
 interface Order{
-    name: String;
-    email: String;
-    mobile: Number;
-    address: String;
-    pId: String | null;
-    pTitle: String;
-    pImage: String;
-    pPrice: Number;
-    pTaxes: Number;
-    pShippingCharges: Number;
-    pTotal: Number;
+    name: string;
+    email: string;
+    mobile: number;
+    address: string;
+    pId: string | null;
+    pTitle: string | undefined;
+    pImage: string | undefined;
+    pPrice: number;
+    pTaxes: number;
+    pShippingCharges: number;
+    pTotal: number;
     card: {
-        cardNo: Number;
-        expiry: String;
-        cvvNo: Number
+        cardNo: number;
+        expiry: string;
+        cvvNo: number
     }
 }
 
 const Payment = () => {
 
-    const [params, setParams] = useSearchParams();
+    const [params] = useSearchParams();
     const token = localStorage.getItem('auth-token');
     if (!token && params.get('pid')) return <Navigate to={"/signin?page=payment&pid="+params.get('pid')} />;
 
@@ -68,24 +60,24 @@ const Payment = () => {
     }
 
     const onSubmit = (data: Order) => {
-        // console.log(data);
-        data = {
-            name: data.name,
-            email: data.email,
-            mobile: data.mobile,
-            address: data.address,
+        const { name, email, mobile, address } = data;
+        const orderData = {
+            name: name,
+            email: email,
+            mobile: mobile,
+            address: address,
             pId: id,
             pTitle: product?.title,
             pImage: product?.photo.name,
             pPrice: price,
-            pTaxes: taxes.toFixed(2),
-            pShippingCharges: shippingCharges.toFixed(2),
-            pTotal: total.toFixed(2)                
+            pTaxes: taxes,
+            pShippingCharges: shippingCharges,
+            pTotal: total               
         };
         setSpinner(true);
         axios.post(
             "http://localhost:3000/api/orders",
-            data,
+            orderData,
             { headers: { "auth-token": token } }
         ).then(({ data }) => {
             setSpinner(false);

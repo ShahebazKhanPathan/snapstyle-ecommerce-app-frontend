@@ -1,25 +1,28 @@
-import { Box, Card, CardBody, CardHeader, Divider, Flex, Grid, GridItem, Heading, Image, SimpleGrid, Spacer, Stack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
+import { Card, CardBody, CardHeader, Divider, Text, Grid, GridItem, Heading, Image, SimpleGrid } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-interface User{
-    _id: String;
-    name: String;
-    email: String;
-    mobile: String;
+export interface Info{
+    _id: string;
+    userName: string;
+    email: string;
+    mobile: number;
+    address: string;
+    title: string;
+    image: string;
+    date: string;
+    price: number;
+    taxes: number;
+    shippingCharges: number;
+    total: number
 }
 
 const MyOrders = () => {
 
     const token = localStorage.getItem("auth-token");
     if (!token) return <Navigate to={"/"}/>;
-
-    const [error, setError] = useState('');
-    const [alert, setAlert] = useState('');
-    const [loader, setLoader] = useState(false);
-    const [orders, setOrders] = useState<User[]>([]);
-    let srNo = 0;
+    const [orders, setOrders] = useState<Info[]>([]);
 
     const getMyOrders = () => {
         axios.get(
@@ -60,7 +63,7 @@ const MyOrders = () => {
                                     <Text>Date: {order.date.substring(0,24)}</Text>
                                 </GridItem>
                                 <GridItem colSpan={1}>
-                                    <Image height="150px" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image} />
+                                    <Image boxSize="120px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image} />
                                 </GridItem>
                                 <GridItem colSpan={2}>
                                     <Card>

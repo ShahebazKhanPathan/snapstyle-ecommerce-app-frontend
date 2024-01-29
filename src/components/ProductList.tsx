@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 interface Product{
-    title: String,
-    price: Number,
-    _id: Number;
+    title: string,
+    price: number,
+    _id: number;
     photo: {
-        name: String;
+        name: string;
     }
 }
 

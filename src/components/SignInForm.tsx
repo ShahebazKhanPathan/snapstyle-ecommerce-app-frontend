@@ -15,7 +15,7 @@ const SignInForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<User>();
     const [error, setError] = useState('');
     const [loader, setLoader] = useState(false);
-    const [params, setParams] = useSearchParams();
+    const [params] = useSearchParams();
 
     const onSubmit = (data: User) => {
         setLoader(true);

@@ -3,11 +3,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
+interface Search{
+    _id: string;
+    title: string;
+    price: number;
+    photo: { name: string }
+}
+
 const SearchResults = () => {
       
     const [searchLoader, setLoader] = useState(false);
-    const [params, setParams] = useSearchParams();
-    const [products, setProducts] = useState([]);
+    const [params] = useSearchParams();
+    const [products, setProducts] = useState<Search[]>([]);
     const noResults = searchLoader ? "" : "No results found.";
 
     useEffect(() => {

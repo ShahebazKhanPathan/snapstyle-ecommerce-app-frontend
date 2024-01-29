@@ -3,11 +3,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-interface User{
-    _id: String;
-    name: String;
-    email: String;
-    mobile: String;
+interface Item{
+    pId: {
+        title: string;
+        price: number;
+        photo: { name: string };
+    }
 }
 
 const Cart = () => {
@@ -15,10 +16,7 @@ const Cart = () => {
     const token = localStorage.getItem("auth-token");
     if (!token) return <Navigate to={"/signin"} />;
     
-    const [error, setError] = useState('');
-    const [alert, setAlert] = useState('');
-    const [loader, setLoader] = useState(false);
-    const [cart, setCart] = useState<User[]>([]);
+    const [cart, setCart] = useState<Item[]>([]);
     let srNo = 0;
     let total = 0;
     let shippingCharges = 1;

@@ -1,14 +1,14 @@
-import { Box, Card, CardBody, Center, HStack, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
+import { Card, CardBody, Center, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 interface Product{
-    title: String,
-    price: Number,
-    _id: Number;
+    title: string,
+    price: number,
+    _id: string;
     photo: {
-        name: String;
+        name: string;
     }
 }
 
@@ -16,7 +16,7 @@ const Category = () => {
 
     const [products, setProducts] = useState<Product[]>([]);
     const [loadingSkeleton, setSkeleton] = useState(true);
-    const [params, setParams] = useSearchParams();
+    const [params] = useSearchParams();
     const noProductsLabel = "";
     const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "250px" };
     const gridColumns = { base: 2, sm: 3, md: 3, lg: 3, xl: 4 };
