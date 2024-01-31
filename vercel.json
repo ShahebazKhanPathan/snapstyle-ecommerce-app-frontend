@@ -1,7 +1,7 @@
 {
     "rewrites": [
         {
-            "source": "/category",
+            "source": "/:path*",
             "destination": "/index.html"
         }
     ]
