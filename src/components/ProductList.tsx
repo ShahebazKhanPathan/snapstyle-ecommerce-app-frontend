@@ -1,4 +1,4 @@
-import { Card, CardBody, Center, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
+import { AbsoluteCenter, Card, CardBody, Center, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,16 +16,22 @@ const ProductList = () => {
 
     const [products, setProducts] = useState<Product[]>([]);
     const [loadingSkeleton, setSkeleton] = useState(true);
-    const noProductsLabel = "";
+    const [noProductsLabel, setProductsLabel] = useState("");
     const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "250px" };
     const gridColumns = { base: 2, sm: 3, md: 3, lg: 3, xl: 4 };
     const skeletons = [1, 2, 3, 4];
 
     const getProducts = () => {
+        setProductsLabel("");
         axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product")
-            .then((res) => {
+            .then(({ data }) => {
                 setSkeleton(false);
-                setProducts(res.data)
+                if (data.length == 0) {
+                    setProductsLabel("Sorry! No products available right now.");
+                }
+                else {
+                    setProducts(data);
+                }
             })
             .catch((err) => {
                 setSkeleton(false);
@@ -75,7 +81,9 @@ const ProductList = () => {
                 </SimpleGrid>
                 :
                 <SimpleGrid>
-                    <Text>{products.length==0 ? noProductsLabel : 'No products available.'}</Text>
+                    <AbsoluteCenter>
+                        <Text fontWeight={500}>{noProductsLabel}</Text>
+                    </AbsoluteCenter>
                 </SimpleGrid>
             }
         </>

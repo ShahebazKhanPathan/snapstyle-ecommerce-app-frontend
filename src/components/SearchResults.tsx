@@ -15,7 +15,7 @@ const SearchResults = () => {
     const [searchLoader, setLoader] = useState(false);
     const [params] = useSearchParams();
     const [products, setProducts] = useState<Search[]>([]);
-    const noResults = searchLoader ? "" : "No results found.";
+    const noResults = searchLoader ? "" : "Sorry! No search results found";
 
     useEffect(() => {
         setLoader(true);
