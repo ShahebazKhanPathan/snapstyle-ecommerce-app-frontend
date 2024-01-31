@@ -14,7 +14,7 @@ function Dashboard() {
     const [isToken, setToken] = useState(Boolean);
 
     const logOut = () => {
-        axios.delete("http://localhost:3000/api/blacklist",
+        axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
         { headers: { "admin-auth-token": localStorage.getItem('admin-auth-token') } })
         .then(() => {
             localStorage.removeItem("admin-auth-token");
@@ -26,7 +26,7 @@ function Dashboard() {
 
     useEffect(() => {
         if (token) {
-        axios.get("http://localhost:3000/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
         .then(() => setToken(true))
         .catch(() => setToken(false));
         }

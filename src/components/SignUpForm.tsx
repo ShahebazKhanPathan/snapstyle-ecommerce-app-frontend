@@ -18,14 +18,14 @@ const SignUpForm = () => {
     const [loader, setLoader] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/users")
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users")
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
     }, []);
 
     const onSubmit = (data: User) => {
         setLoader(true);
-        axios.post("http://localhost:3000/api/users", data)
+        axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users", data)
             .then(({ data }) => {
                 setLoader(false);
                 localStorage.setItem("auth-token", data);               

@@ -19,7 +19,7 @@ const SignInForm = () => {
 
     const onSubmit = (data: User) => {
         setLoader(true);
-        axios.post("http://localhost:3000/api/auth", data) 
+        axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/auth", data) 
             .then(({ data }) => {
                 localStorage.setItem("auth-token", data);
                 setLoader(false);

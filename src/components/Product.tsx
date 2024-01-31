@@ -26,7 +26,7 @@ const Product = () => {
     const id = params.get("pid");
 
     const getProduct = (id: string | null) => {
-        axios.get("http://localhost:3000/api/product/" + id)
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
             .then(({ data }) => {
                 setProduct(data);
                 setSkeleton(false);
@@ -43,7 +43,7 @@ const Product = () => {
         setLoader(true);
         
         axios.post(
-            "http://localhost:3000/api/cart",
+            "https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/cart",
             { pId: id },
             { headers: { "auth-token": localStorage.getItem("auth-token")}}
         ).then(() => {

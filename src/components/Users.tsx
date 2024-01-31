@@ -19,7 +19,7 @@ const Users = () => {
     let srNo = 0;
 
     const getUsers = () => {
-        axios.get("http://localhost:3000/api/users")
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users")
             .then((res) => setUsers(res.data))
             .catch((err) => console.log(err.message));
     }

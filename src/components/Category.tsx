@@ -25,7 +25,7 @@ const Category = () => {
     const getProducts = () => {
         setProducts([]);
         setSkeleton(true);
-        axios.get("http://localhost:3000/api/product/category/"+params.get("name"))
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/category/"+params.get("name"))
             .then(({ data }) => {
                 setSkeleton(false);
                 setProducts(data)

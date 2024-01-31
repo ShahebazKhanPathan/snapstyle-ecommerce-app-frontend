@@ -21,7 +21,7 @@ const AdminLogin = () => {
         setLoader(true);
         setAlert('');
         setError('');
-        axios.post("http://localhost:3000/api/admin", data) 
+        axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/admin", data) 
             .then(({ data }) => {
                 localStorage.setItem("admin-auth-token", data);
                 setLoader(false);

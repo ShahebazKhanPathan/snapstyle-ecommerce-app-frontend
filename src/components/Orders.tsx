@@ -13,7 +13,7 @@ const Orders = () => {
     let srNo = 0;
 
     const getOrders = () => {
-        axios.get("http://localhost:3000/api/orders/admin", { headers: { "admin-auth-token": token }})
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/orders/admin", { headers: { "admin-auth-token": token }})
             .then(({ data }) => setOrders(data))
             .catch((err) => console.log(err.message));
     }

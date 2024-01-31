@@ -22,7 +22,7 @@ const ProductList = () => {
     const skeletons = [1, 2, 3, 4];
 
     const getProducts = () => {
-        axios.get("http://localhost:3000/api/product")
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product")
             .then((res) => {
                 setSkeleton(false);
                 setProducts(res.data)

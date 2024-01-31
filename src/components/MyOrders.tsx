@@ -26,7 +26,7 @@ const MyOrders = () => {
 
     const getMyOrders = () => {
         axios.get(
-            "http://localhost:3000/api/orders",
+            "https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/orders",
             { headers: { "auth-token": token } }
         )
             .then(({ data }) => {

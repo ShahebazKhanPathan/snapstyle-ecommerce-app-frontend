@@ -23,7 +23,7 @@ const Cart = () => {
     let taxes = 0;
 
     const getCartItems = () => {
-        axios.get("http://localhost:3000/api/cart", { headers: { "auth-token": token }})
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/cart", { headers: { "auth-token": token }})
             .then(({ data }) => setCart(data))
             .catch((err) => console.log(err.message));
     }

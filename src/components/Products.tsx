@@ -31,7 +31,7 @@ const Products = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     const getProducts = () => {
-        axios.get("http://localhost:3000/api/product")
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product")
             .then((res) => setProducts(res.data))
             .catch((err) => setError(err.message));
     }
@@ -39,7 +39,7 @@ const Products = () => {
     const removeProduct = (id: String) => {
         setAlert("");
         setError("");
-        axios.delete("http://localhost:3000/api/product/" + id)
+        axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
             .then(() => getProducts())
             .catch((err) => setError(err.message));
     }
@@ -61,7 +61,7 @@ const Products = () => {
         setLoader(true);
         setAlert("");
         setError("");
-        axios.post("http://localhost:3000/api/product", data)
+        axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product", data)
             .then((res) => {
                 axios.put(
                     res.data,

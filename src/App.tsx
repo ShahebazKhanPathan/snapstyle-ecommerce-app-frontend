@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      axios.get("http://localhost:3000/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
+      axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
       .then(() => setToken(true))
       .catch(() => setToken(false));
     }

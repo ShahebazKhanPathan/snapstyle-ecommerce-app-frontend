@@ -20,7 +20,7 @@ const SearchResults = () => {
     useEffect(() => {
         setLoader(true);
         setProducts([]);
-        axios.get("http://localhost:3000/api/product/search/" + params.get("query"))
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/search/" + params.get("query"))
             .then(({ data }) => {
                 setLoader(false);
                 setProducts(data);
