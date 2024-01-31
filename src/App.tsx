@@ -15,7 +15,7 @@ function App() {
   const buttonSizes = { base: 'xs', sm: 'xs', md: 'sm', lg: 'md' };
 
   const logOut = () => {
-    axios.delete("http://localhost:3000/api/blacklist",
+    axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
       { headers: { "auth-token": localStorage.getItem('auth-token') } })
       .then(() => {
         localStorage.removeItem("auth-token");

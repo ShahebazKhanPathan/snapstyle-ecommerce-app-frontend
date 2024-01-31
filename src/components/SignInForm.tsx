@@ -18,6 +18,7 @@ const SignInForm = () => {
     const [params] = useSearchParams();
 
     const onSubmit = (data: User) => {
+        setError('');
         setLoader(true);
         axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/auth", data) 
             .then(({ data }) => {

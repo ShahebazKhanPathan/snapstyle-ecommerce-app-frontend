@@ -25,6 +25,8 @@ const SignUpForm = () => {
 
     const onSubmit = (data: User) => {
         setLoader(true);
+        setAlert('');
+        setError('');
         axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users", data)
             .then(({ data }) => {
                 setLoader(false);
