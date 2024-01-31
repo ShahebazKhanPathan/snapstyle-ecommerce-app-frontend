@@ -37,11 +37,19 @@ const Products = () => {
     }
 
     const removeProduct = (id: String) => {
+        setLoader(true);
         setAlert("");
         setError("");
         axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
-            .then(() => getProducts())
-            .catch((err) => setError(err.message));
+            .then(() => {
+                setLoader(false);
+                setAlert("Product removed successfully!");
+                getProducts()
+            })
+            .catch((err) => {
+                setLoader(false);
+                setError(err.message)
+            });
     }
 
     useEffect(() => {

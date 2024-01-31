@@ -45,7 +45,7 @@ const Payment = () => {
     const { handleSubmit, register, reset, formState: { errors } } = useForm<Order>();
 
     const getProduct = (id: String | null) => {
-        axios.get("http://localhost:3000/api/product/" + id)
+        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
             .then(({ data }) => {
                 setProduct(data);
                 setPrice(data.price);
