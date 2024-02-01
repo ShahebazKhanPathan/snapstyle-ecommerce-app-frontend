@@ -46,13 +46,13 @@ const SignInForm = () => {
     if (!token) {
         return (
             <SimpleGrid columns={gridColumns} paddingX={5}>
-                {loader && <Spinner className="mb-3"/>}
-                {error && <Alert status="error" className="mb-3">
-                    <AlertIcon />
-                    {error}
-                </Alert>}
                 <Card py={4}>
                     <CardHeader pt={1} pb={0}>
+                        {loader && <Spinner className="mb-3"/>}
+                        {error && <Alert status="error" className="mb-3">
+                            <AlertIcon />
+                            {error}
+                        </Alert>}
                         <Text fontWeight={600} fontSize={headingSizes}>Sign In</Text>
                     </CardHeader>
                     <CardBody py={0}>

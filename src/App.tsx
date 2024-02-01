@@ -15,15 +15,15 @@ import axios from "axios";
 function App() {
 
   const token = localStorage.getItem('auth-token');
-  const [isToken, setToken] = useState(Boolean);
+  const [isToken, setToken] = useState(false);
   const buttonSizes = { base: 'xs', sm: 'xs', md: 'sm', lg: 'md' };
   const menuLinkSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md', xl: 'md' };
   const fontWeight = '400';
   const buttonVariant = 'ghost';
   const [drawer, setDrawer] = useState(false);
 
-  const logOut = () => {
-    axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
+  const logOut = async () => {
+    await axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
       { headers: { "auth-token": localStorage.getItem('auth-token') } })
       .then(() => {
         localStorage.removeItem("auth-token");
@@ -33,13 +33,17 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  useEffect(() => {
+  const checkTokenExpiry = async () => {
     if (token) {
-      axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
+      await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
       .then(() => setToken(true))
       .catch(() => setToken(false));
     }
-  }, []);
+  }
+
+  useEffect(() => {
+    checkTokenExpiry();
+  });
 
   return (
     <>
@@ -121,7 +125,7 @@ function App() {
         </Hide>
 
         <GridItem colSpan={{base: 3, sm: 3, md: 2, lg: 2, xl: 2}}>
-          {isToken || null
+          {isToken
             ?
             <Box>
               <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaShoppingCart />} variant="ghost" colorScheme="green">
@@ -138,9 +142,7 @@ function App() {
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={() => logOut()} fontSize={buttonSizes}>
-                    <Link to={"/orders"}>
-                      <Icon as={FaSignOutAlt} color="green" /> Logout
-                    </Link>
+                    <Icon as={FaSignOutAlt} color="green" mr={1} /> Logout
                   </MenuItem>
                 </MenuList>
               </Menu>

@@ -38,17 +38,17 @@ const AdminLogin = () => {
     if (!token) {
         return (
             <SimpleGrid paddingX={5} columns={gridColumns}>
-                {loader && <Spinner className="mb-3"/>}
-                {error && <Alert status="error" className="mb-3">
-                    <AlertIcon />
-                    {error}
-                </Alert>}
-                {alert && <Alert status="success" className="mb-3">
-                    <AlertIcon />
-                    {alert}
-                </Alert>}
                 <Card py={4}>
                     <CardHeader pt={1} pb={0}>
+                        {loader && <Spinner className="mb-3"/>}
+                        {error && <Alert status="error" className="mb-3">
+                            <AlertIcon />
+                            {error}
+                        </Alert>}
+                        {alert && <Alert status="success" className="mb-3">
+                            <AlertIcon />
+                            {alert}
+                        </Alert>}
                         <Text fontSize={headingSizes} fontWeight={600} mb={4}>Admin - Sign in</Text>
                     </CardHeader>
                     <CardBody py={0}>
