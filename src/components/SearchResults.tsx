@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Heading, Image, Progress, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Button, Card, CardBody, Heading, Image, Progress, SimpleGrid, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
