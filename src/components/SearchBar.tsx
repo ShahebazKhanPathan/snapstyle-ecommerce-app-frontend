@@ -18,7 +18,7 @@ const SearchBar = () => {
         <Box>
             <InputGroup size={searchBarSizes}>
                 <InputLeftElement><CiSearch /></InputLeftElement>
-                <Input fontSize={{base: "12px", sm: "12px", md: "14px", lg: "14px", xl: "15px"}} onKeyUp={(event) => onSearch(event)} borderRadius={3} type="text" placeholder="Search for Products, Brands and More..."/>
+                <Input fontSize={{base: "12px", sm: "12px", md: "12px", lg: "14px", xl: "15px"}} onKeyUp={(event) => onSearch(event)} borderRadius={3} type="text" placeholder="Search for Products, Brands and More..."/>
             </InputGroup>
         </Box>            
     );

@@ -52,13 +52,15 @@ function App() {
         templateColumns={{
           base: 'repeat(6, 1fr)',
           sm: 'repeat(6, 1fr)',
-          md: 'repeat(6, 1fr)'
+          md: 'repeat(6, 1fr)',
+          lg: 'repeat(6, 1fr)',
+          xl: 'repeat(6, 1fr)'
         }}
         gap={{ base: 2, sm: 2, md: 4}}
         alignItems="center">
         
         <GridItem colSpan={{ base: 3, sm: 3, md: 1 }}>
-          <Box width={{ base: "160px", sm: "200px", md: "200px", lg: "220px", xl: "220px" }}>
+          <Box width={{ base: "160px", sm: "180px", md: "180px", lg: "220px", xl: "220px" }}>
             <Stack direction="row">
               <Show below="md">
                 <IconButton onClick={() => setDrawer(true)} variant="ghost" colorScheme="green" aria-label="menu" size="sm" icon={<IoMenu />} />
@@ -113,7 +115,7 @@ function App() {
         </GridItem>
 
         <Hide below="md">
-          <GridItem colSpan={{sm: 4, md: 3, lg: 3, xl: 3}}>
+          <GridItem colSpan={{base: 4, sm: 4, md: 3, lg: 3, xl: 3}}>
             <SearchBar/>
           </GridItem>
         </Hide>
