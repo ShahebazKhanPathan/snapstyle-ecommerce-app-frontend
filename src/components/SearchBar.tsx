@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const SearchBar = () => {
 
     const navigate = useNavigate();
+    const searchBarSizes = { base: 'sm', sm: 'sm', md: 'sm', lg: 'md', xl: 'md' };
 
     const onSearch = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
@@ -15,9 +16,9 @@ const SearchBar = () => {
 
     return (
         <Box>
-            <InputGroup size={{base: 'xs', sm: 'xs', md: 'sm', lg: 'md', xl: 'md'}}>
+            <InputGroup size={searchBarSizes}>
                 <InputLeftElement><CiSearch /></InputLeftElement>
-                <Input onKeyUp={(event) => onSearch(event)} borderRadius={3} type="text" placeholder="Search for Products, Brands and More"/>
+                <Input fontSize={{base: "12px"}} onKeyUp={(event) => onSearch(event)} borderRadius={3} type="text" placeholder="Search for Products, Brands and More..."/>
             </InputGroup>
         </Box>            
     );

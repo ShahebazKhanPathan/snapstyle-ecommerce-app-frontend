@@ -1,7 +1,7 @@
 import { Alert, AlertIcon, Button, Heading, SimpleGrid, Spinner } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface User{
     name: string;
@@ -16,12 +16,6 @@ const SignUpForm = () => {
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
-
-    useEffect(() => {
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users")
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-    }, []);
 
     const onSubmit = (data: User) => {
         setLoader(true);

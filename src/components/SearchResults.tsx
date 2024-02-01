@@ -38,13 +38,13 @@ const SearchResults = () => {
             {products.length > 0
                 ?
                 <SimpleGrid>
-                    <Heading size="md" mb={5}>Search results ({products.length}) </Heading>
+                    <Heading size="sm" mb={5}>Search results ({products.length}) </Heading>
                     {products.map((product) => 
                         <Card direction="row" p={5} mb={4}>
-                            <Image boxSize="150px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/" + product.photo.name} />
+                            <Image boxSize="120px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/" + product.photo.name} />
                             <Stack>
                                 <CardBody>
-                                    <Heading size="sm" mb={5}>{product.title}</Heading>
+                                    <Heading size="xs" mb={5}>{product.title}</Heading>
                                     <Heading color="green" size="sm">${product.price}</Heading>
                                     <Link to={"/product?pid="+product._id}><Button mt={3} colorScheme="green" variant="solid" size="sm">View</Button></Link>
                                 </CardBody>

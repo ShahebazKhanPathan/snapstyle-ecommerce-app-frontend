@@ -1,4 +1,4 @@
-import { AbsoluteCenter, Card, CardBody, Center, Heading, Image, SimpleGrid, Skeleton, Stack, Text } from "@chakra-ui/react"
+import { AbsoluteCenter, Card, CardBody, Center, HStack, Image, SimpleGrid, Skeleton, Text } from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -17,8 +17,10 @@ const ProductList = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loadingSkeleton, setSkeleton] = useState(true);
     const [noProductsLabel, setProductsLabel] = useState("");
-    const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "250px" };
-    const gridColumns = { base: 2, sm: 3, md: 3, lg: 3, xl: 4 };
+    const boxSizes = { base: "120px", sm: "120", md: "150px", lg: "160px", xl: "250px" };
+    const fontSizes = { base: "14px", md: "12px", lg: "18px", xl: "18px" };
+    const headingSizes = { base: "18px", md: "xs", lg: "sm", xl: "md" };
+    const gridColumns = { base: 2, sm: 2, md: 3, lg: 3, xl: 4 };
     const skeletons = [1, 2, 3, 4];
 
     const getProducts = () => {
@@ -50,7 +52,7 @@ const ProductList = () => {
                     {skeletons.map((skeleton) =>
                         <Card key={skeleton}>
                             <CardBody>
-                                <Skeleton height={imageHeight}></Skeleton>
+                                <Skeleton height={boxSizes}></Skeleton>
                                 <Skeleton mt={2} height={{ base: "10px", md: "12px", lg: "16px", xl: "16px" }}></Skeleton>
                                 <Skeleton mt={2} height={{ base: "10px", md: "12px", lg: "16px", xl: "16px" }}></Skeleton>
                             </CardBody>
@@ -65,15 +67,15 @@ const ProductList = () => {
                     {products.map((product) =>
                     <Link to={"/product?pid="+product._id} key={product._id}>
                         <Card>
-                            <CardBody>
+                            <CardBody p="10px">
                                 <Center>
-                                    <Image boxSize="220px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product.photo.name} />
+                                    <Image boxSize={boxSizes} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product.photo.name} />
                                 </Center>
-                                <Text noOfLines={1} mt={3} fontSize={{base: "10px", md: "12px", lg: "18px", xl: "18px" }}>{product.title}</Text>
-                                <Stack direction="row">
-                                    <Heading size={{ base: "xs", md: "xs", lg: "sm", xl: "md" }}>${product.price}</Heading>
-                                    <Text color="green">50% off</Text>
-                                </Stack>
+                                <Text noOfLines={1} mt={3} mb={1} fontSize={fontSizes}>{product.title}</Text>
+                                <HStack alignItems="center">
+                                    <Text fontWeight={600} fontSize={headingSizes}>${product.price}</Text>
+                                    <Text fontSize={fontSizes} color="green">50% off</Text>
+                                </HStack>
                             </CardBody>
                         </Card>
                     </Link>
