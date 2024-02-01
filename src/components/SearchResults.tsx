@@ -16,6 +16,7 @@ const SearchResults = () => {
     const [params] = useSearchParams();
     const [products, setProducts] = useState<Search[]>([]);
     const noResults = searchLoader ? "" : "Sorry! No search results found";
+    const buttonSizes = { base: 'xs', sm: 'xs', md: 'sm', lg: 'sm' };
 
     useEffect(() => {
         setLoader(true);
@@ -40,20 +41,18 @@ const SearchResults = () => {
                 <SimpleGrid>
                     <Heading size="sm" mb={5}>Search results ({products.length}) </Heading>
                     {products.map((product) => 
-                        <Card direction="row" p={5} mb={4}>
-                            <Image boxSize="120px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/" + product.photo.name} />
-                            <Stack>
-                                <CardBody>
-                                    <Heading size="xs" mb={5}>{product.title}</Heading>
-                                    <Heading color="green" size="sm">${product.price}</Heading>
-                                    <Link to={"/product?pid="+product._id}><Button mt={3} colorScheme="green" variant="solid" size="sm">View</Button></Link>
-                                </CardBody>
-                            </Stack>
+                        <Card direction="row" p={3} mb={4}>
+                            <Image p={{base: 1, sm: 1, md: 2, lg: 3, xl: 4}} boxSize={{base: "120px", sm: "140px", md: "160px", lg: "160px", xl: "180px"}} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/" + product.photo.name} />
+                            <CardBody>
+                                <Heading size={buttonSizes} mb={4}>{product.title}</Heading>
+                                <Heading color="green" size={buttonSizes} mb={5}>${product.price}</Heading>
+                                <Link to={"/product?pid="+product._id}><Button colorScheme="green" variant="solid" size={buttonSizes}>View</Button></Link>
+                            </CardBody>
                         </Card>
                     )}
                 </SimpleGrid>
                 :
-                <Text>{noResults}</Text>
+                <Text fontSize={buttonSizes}>{noResults}</Text>
             }
         </> 
     );

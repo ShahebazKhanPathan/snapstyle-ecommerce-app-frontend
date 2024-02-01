@@ -17,10 +17,10 @@ const ProductList = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loadingSkeleton, setSkeleton] = useState(true);
     const [noProductsLabel, setProductsLabel] = useState("");
-    const boxSizes = { base: "120px", sm: "120", md: "150px", lg: "160px", xl: "250px" };
+    const boxSizes = { base: "120px", sm: "120", md: "150px", lg: "160px", xl: "240px" };
     const fontSizes = { base: "14px", md: "12px", lg: "18px", xl: "18px" };
     const headingSizes = { base: "18px", md: "xs", lg: "sm", xl: "md" };
-    const gridColumns = { base: 2, sm: 2, md: 3, lg: 3, xl: 4 };
+    const gridColumns = { base: 2, sm: 3, md: 3, lg: 3, xl: 4 };
     const skeletons = [1, 2, 3, 4];
 
     const getProducts = () => {
@@ -67,7 +67,7 @@ const ProductList = () => {
                     {products.map((product) =>
                     <Link to={"/product?pid="+product._id} key={product._id}>
                         <Card>
-                            <CardBody p="10px">
+                            <CardBody p={{base: "10px", sm: "12px", md: "14px", lg: "16px", xl: "20px"}}>
                                 <Center>
                                     <Image boxSize={boxSizes} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product.photo.name} />
                                 </Center>

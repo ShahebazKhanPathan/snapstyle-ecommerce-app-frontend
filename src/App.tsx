@@ -56,8 +56,8 @@ function App() {
         gap={{ base: 2, sm: 2, md: 4}}
         alignItems="center">
         
-        <GridItem colSpan={{ base: 3, sm: 1, md: 1 }}>
-          <Box width={{ base: "160px", sm: "160px", md: "160px", lg: "220px" }}>
+        <GridItem colSpan={{ base: 3, sm: 3, md: 1 }}>
+          <Box width={{ base: "160px", sm: "200px", md: "200px", lg: "220px", xl: "220px" }}>
             <Stack direction="row">
               <Show below="md">
                 <IconButton onClick={() => setDrawer(true)} variant="ghost" colorScheme="green" aria-label="menu" size="sm" icon={<IoMenu />} />
@@ -111,13 +111,13 @@ function App() {
           </Box>
         </GridItem>
 
-        <Hide below="sm">
+        <Hide below="md">
           <GridItem colSpan={{sm: 4, md: 3, lg: 3, xl: 3}}>
             <SearchBar/>
           </GridItem>
         </Hide>
 
-        <GridItem colSpan={{base: 3, sm: 1, md: 2, lg: 2, xl: 2}}>
+        <GridItem colSpan={{base: 3, sm: 3, md: 2, lg: 2, xl: 2}}>
           {isToken || null
             ?
             <Box>
@@ -162,7 +162,7 @@ function App() {
           }
         </GridItem>
 
-        <Show below="sm">
+        <Show below="md">
           <GridItem colSpan={{ base: 6, sm: 6}}>
             <SearchBar/>
           </GridItem>
@@ -176,7 +176,7 @@ function App() {
         }}
         templateRows="repeat(1, 1fr)"
         paddingX={{ base: 2, sm: 4, md: 4, lg: 4, xl: 4}}
-        paddingTop={{ base: 2, sm: 1 }}
+        paddingTop={{ base: 1, sm: 2, md: 2, lg: 2, xl: 2 }}
         paddingBottom={{ base: 3, sm: 1, md: 3, lg: 5}}
         gap={4} >
         
