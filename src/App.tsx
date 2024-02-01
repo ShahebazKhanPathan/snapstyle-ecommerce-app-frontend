@@ -17,6 +17,7 @@ function App() {
   const token = localStorage.getItem('auth-token');
   const [isToken, setToken] = useState(Boolean);
   const buttonSizes = { base: 'xs', sm: 'xs', md: 'sm', lg: 'md' };
+  const menuLinkSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md', xl: 'md' };
   const fontWeight = '400';
   const buttonVariant = 'ghost';
   const [drawer, setDrawer] = useState(false);
@@ -70,32 +71,32 @@ function App() {
                         <List spacing={2} padding={0}>
                           <ListItem>
                               <Link to={"/"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={buttonSizes} variant={buttonVariant} leftIcon={<IoCube />}>All Products</Button>
+                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant={buttonVariant} leftIcon={<IoCube />}>All Products</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Fashion"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={buttonSizes} variant={buttonVariant} leftIcon={<FaTshirt />}>Fashion</Button>
+                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant={buttonVariant} leftIcon={<FaTshirt />}>Fashion</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Electronics"} onClick={() => setDrawer(false)}>
-                              <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
+                              <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Appliances"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
+                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Furniture"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<GiSofa />}>Furniture</Button>
+                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<GiSofa />}>Furniture</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Toys"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={buttonSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
+                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
                               </Link>
                           </ListItem>
                         </List>
