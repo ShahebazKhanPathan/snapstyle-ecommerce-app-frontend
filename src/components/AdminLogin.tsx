@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Button, Heading, SimpleGrid, Spinner } from "@chakra-ui/react"
+import { Alert, AlertIcon, Button, Card, CardBody, CardHeader, Input, SimpleGrid, Spinner, Text } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
@@ -16,6 +16,9 @@ const AdminLogin = () => {
     const [error, setError] = useState('');
     const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
+    const headingSizes = { base: "18px", sm: "18px", md: "20px", lg: "22px", xl: "22px" };
+    const buttonSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md' };
+    const gridColumns = { base: 1, sm: 1, md: 2, lg: 2, xl: 2 };
 
     const onSubmit = (data: Admin) => {
         setLoader(true);
@@ -34,7 +37,7 @@ const AdminLogin = () => {
 
     if (!token) {
         return (
-            <SimpleGrid paddingX={5}>
+            <SimpleGrid paddingX={5} columns={gridColumns}>
                 {loader && <Spinner className="mb-3"/>}
                 {error && <Alert status="error" className="mb-3">
                     <AlertIcon />
@@ -44,20 +47,26 @@ const AdminLogin = () => {
                     <AlertIcon />
                     {alert}
                 </Alert>}
-                <Heading size="lg" mb={4}>Admin - Sign in</Heading>
-                <form onSubmit={handleSubmit((data) => { onSubmit(data); reset({ userId: "", password: ""})})}>
-                        <div className="form-group mb-3">
+                <Card py={4}>
+                    <CardHeader pt={1} pb={0}>
+                        <Text fontSize={headingSizes} fontWeight={600} mb={4}>Admin - Sign in</Text>
+                    </CardHeader>
+                    <CardBody py={0}>
+                        <form onSubmit={handleSubmit((data) => { onSubmit(data); reset({ userId: "", password: ""})})}>
+                            <div className="form-group mb-3">
                                 <label htmlFor="userId" className="label form-label">User ID</label>
-                                <input {...register("userId", { required: "User ID is required.", minLength: { value: 5, message: "User ID must be at least 5 characters long."} })} id="userId" type="text" className="form-control" placeholder="Enter user id" />
+                                <Input {...register("userId", { required: "User ID is required.", minLength: { value: 5, message: "User ID must be at least 5 characters long."} })} id="userId" type="text" size={buttonSizes} placeholder="User ID" />
                                 {errors.userId && <p className="text-danger">{errors.userId?.message}</p>}
-                        </div>
-                        <div className="form-group mb-3">
-                            <label htmlFor="password" className="label form-label">Password</label>
-                            <input {...register("password", { required: "Password is required.", minLength: { value: 8, message: "Password must be at least 8 characters long." } })} id="password" type="password" className="form-control" placeholder="Enter password" />
-                            {errors.password && <p className="text-danger">{errors.password?.message}</p>}
-                        </div>
-                        <Button colorScheme="green" type="submit" >Login</Button>
-                    </form>
+                            </div>
+                            <div className="form-group mb-3">
+                                <label htmlFor="password" className="label form-label">Password</label>
+                                <Input {...register("password", { required: "Password is required.", minLength: { value: 8, message: "Password must be at least 8 characters long." } })} id="password" type="password" size={buttonSizes} placeholder="Password" />
+                                {errors.password && <p className="text-danger">{errors.password?.message}</p>}
+                            </div>
+                            <Button size={buttonSizes} colorScheme="green" type="submit" >Login</Button>
+                        </form>
+                    </CardBody>
+                </Card>
             </SimpleGrid>
         );
     }

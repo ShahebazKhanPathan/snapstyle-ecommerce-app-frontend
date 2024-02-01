@@ -125,7 +125,7 @@ function App() {
             ?
             <Box>
               <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaShoppingCart />} variant="ghost" colorScheme="green">
-                <span className="badge rounded-pill text-bg-danger">1</span></Button>
+                <span className="badge rounded-pill text-bg-danger"></span></Button>
               </Link>
               <Menu>
                 <MenuButton p={0} fontSize={buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown />}>
