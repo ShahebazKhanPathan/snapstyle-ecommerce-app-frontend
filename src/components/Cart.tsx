@@ -1,4 +1,4 @@
-import { Button, Heading, Image, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
+import { Card, CardBody, Grid, GridItem, Image, SimpleGrid, Text} from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -17,13 +17,10 @@ const Cart = () => {
     if (!token) return <Navigate to={"/signin"} />;
     
     const [cart, setCart] = useState<Item[]>([]);
-    let srNo = 0;
-    let total = 0;
-    let shippingCharges = 1;
-    let taxes = 0;
+    const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
 
-    const getCartItems = () => {
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/cart", { headers: { "auth-token": token }})
+    const getCartItems = async () => {
+        await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/cart", { headers: { "auth-token": token }})
             .then(({ data }) => setCart(data))
             .catch((err) => console.log(err.message));
     }
@@ -33,59 +30,27 @@ const Cart = () => {
     }, []);
 
     return (
-        <SimpleGrid paddingX={5}>
-            <Heading size="md">Cart ({cart.length})</Heading>
-            {cart.length>0 ? 
-                <TableContainer padding={5}>
-                    <Table variant="simple">
-                        <Thead>
-                            <Tr>
-                                <Th>Sr. no.</Th>
-                                <Th>Photo</Th>
-                                <Th>Price</Th>
-                                <Th>Title</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {cart.map((cartItem) => {
-                                srNo += 1;
-                                total += cartItem.pId.price;
-                                taxes = (total / 100) * 10;
-                                return (
-                                    <Tr key={srNo}>
-                                        <Td>{srNo}</Td>
-                                         <Td>
-                                            <Image boxSize="60px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+cartItem.pId.photo.name} />
-                                        </Td>
-                                        <Td>
-                                            ${cartItem.pId.price}
-                                        </Td>
-                                        <Td>
-                                            {cartItem.pId.title}
-                                        </Td>
-                                    </Tr>);
-                                }
-                            )}
-                            <Tr>
-                                <Th colSpan={2}>Taxes</Th>
-                                <Td fontWeight={400}>${taxes.toFixed()}</Td>
-                            </Tr>
-                            <Tr>
-                                <Th colSpan={2}>Shipping charges</Th>
-                                <Td fontWeight={400}>${shippingCharges}</Td>
-                            </Tr>
-                            <Tr>
-                                <Th colSpan={2}>Total</Th>
-                                <Td fontSize="large" fontWeight={500}>${total + shippingCharges + taxes}</Td>
-                                <Td><Button size="sm" colorScheme="green" variant="solid">Check out</Button></Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
-                </TableContainer>
-                :
-                <Text>No orders yet.</Text>
-            }
-        </SimpleGrid>
+        <>
+            <Text px={2} fontWeight={500} fontSize={fontSizes}>My Cart ({cart.length})</Text>
+            <SimpleGrid paddingX={5} spacing={4}>
+                {cart.map((item) => 
+                        <Card>
+                            <CardBody>
+                                <Grid templateColumns="repeat(4, 1fr)">
+                                    <GridItem colSpan={3}>
+                                        <Text fontSize={fontSizes} fontWeight={600}>{item.pId.title}</Text>
+                                        <Text fontSize={fontSizes}>Price: {item.pId.price}</Text>
+                                    </GridItem>
+                                    <GridItem colSpan={1}>
+                                        <Image boxSize={"100px"} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+item.pId.photo.name}/>
+                                    </GridItem>
+                                </Grid>
+                                </CardBody>
+                        </Card>
+                    )
+                    }
+                </SimpleGrid>
+        </>
     );
 }
 
