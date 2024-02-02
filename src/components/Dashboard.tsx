@@ -11,7 +11,7 @@ function Dashboard() {
     const token = localStorage.getItem('admin-auth-token');
     if (!token) return <Navigate to={"/"} />;
 
-    const [isToken, setToken] = useState(Boolean);
+    const [isToken, setToken] = useState(false);
 
     const logOut = async() => {
         await axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
@@ -34,7 +34,7 @@ function Dashboard() {
 
     useEffect(() => {
         checkTokenExpiry();
-    }, []);
+    });
 
     return (
         <>

@@ -30,8 +30,8 @@ const Product = () => {
     const [error, setError] = useState('');
     const id = params.get("pid");
 
-    const getProduct = (id: string | null) => {
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
+    const getProduct = async (id: string | null) => {
+        await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
             .then(({ data }) => {
                 setProduct(data);
                 setSkeleton(false);
@@ -42,12 +42,12 @@ const Product = () => {
             });
     }
 
-    const addtoCart = () => {
+    const addtoCart = async() => {
 
         if (!localStorage.getItem("auth-token")) return location.href = "/signin?page=product&pid=" + id;
         setLoader(true);
         
-        axios.post(
+        await axios.post(
             "https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/cart",
             { pId: id },
             { headers: { "auth-token": localStorage.getItem("auth-token")}}
@@ -91,14 +91,14 @@ const Product = () => {
             {product && 
                 <>
                 {alert &&
-                    <Alert status="success">
+                    <Alert status="success" mb={4} fontSize={fontSizes}>
                         <AlertIcon />
-                        <AlertTitle>Added into cart successfully!</AlertTitle>
+                        <AlertTitle>Added!</AlertTitle>
                         <AlertDescription>Check your cart.</AlertDescription>
                     </Alert>
                 }
                 {error &&
-                    <Alert status="error">
+                    <Alert status="error" mb={4} fontSize={fontSizes}>
                         <AlertIcon />
                         <AlertTitle>Error:</AlertTitle>
                         <AlertDescription>{error}</AlertDescription>

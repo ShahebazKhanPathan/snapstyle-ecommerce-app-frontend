@@ -18,6 +18,7 @@ const SignUpForm = () => {
     const [loader, setLoader] = useState(false);
     const headingSizes = { base: "18px", sm: "18px", md: "20px", lg: "22px", xl: "22px" };
     const buttonSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md' };
+    const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
     const gridColumns = { base: 1, sm: 1, md: 2, lg: 2, xl: 2 };
 
     const onSubmit = (data: User) => {
@@ -29,27 +30,33 @@ const SignUpForm = () => {
                 setLoader(false);
                 localStorage.setItem("auth-token", data);               
                 setAlert('Thank you. You have registered successfully!');
+                setTimeout(() => {
+                    setAlert('');
+                }, 4000);
                 reset();
             })
             .catch(({ response }) => {
                 setLoader(false);
                 setError(response.data);
+                setTimeout(() => {
+                    setError('');
+                }, 4000);
             });
     }
 
     return (
         <SimpleGrid paddingX={5} columns={gridColumns}>
-            {loader && <Spinner className="mb-3"/>}
-            {error && <Alert status="error" className="mb-3">
-                <AlertIcon />
-                {error}
-            </Alert>}
-            {alert && <Alert status="success" className="mb-3">
-                <AlertIcon />
-                {alert}
-            </Alert>}
             <Card py={4}>
                 <CardHeader pt={1} pb={0}>
+                    {loader && <Spinner className="mb-3"/>}
+                    {error && <Alert status="error" mb={4} fontSize={fontSizes} className="mb-3">
+                        <AlertIcon />
+                        {error}
+                    </Alert>}
+                    {alert && <Alert status="success" mb={4} fontSize={fontSizes} className="mb-3">
+                        <AlertIcon />
+                        {alert}
+                    </Alert>}
                     <Text fontSize={headingSizes} fontWeight={600} mb={4}>Create new account</Text>
                 </CardHeader>
                 <CardBody py={0}>
