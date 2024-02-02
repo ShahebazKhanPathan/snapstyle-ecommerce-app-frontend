@@ -130,8 +130,8 @@ function App() {
             ?
             <Box textAlign={{base: "right", xl: "center"}} mr={{base: "10px"}}>
               <Link to={"/cart"}>
-                <Icon as={FaShoppingCart} fontSize={iconSizes} color={"green"}/>
                 <span className="badge rounded-pill text-bg-danger"></span>
+                <Icon as={FaShoppingCart} fontSize={iconSizes} color={"green"}/>
               </Link>
               <Menu>
                 <MenuButton fontSize={buttonSizes} ml={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5}}  variant="ghost" colorScheme="green" as={Button} rightIcon={<FaChevronDown />}>

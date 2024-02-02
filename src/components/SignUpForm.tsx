@@ -14,7 +14,6 @@ const SignUpForm = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<User>();
     const [error, setError] = useState('');
-    const [alert, setAlert] = useState('');
     const [loader, setLoader] = useState(false);
     const headingSizes = { base: "18px", sm: "18px", md: "20px", lg: "22px", xl: "22px" };
     const buttonSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md' };
@@ -23,24 +22,17 @@ const SignUpForm = () => {
 
     const onSubmit = (data: User) => {
         setLoader(true);
-        setAlert('');
         setError('');
         axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users", data)
             .then(({ data }) => {
                 setLoader(false);
                 localStorage.setItem("auth-token", data);               
-                setAlert('Thank you. You have registered successfully!');
-                setTimeout(() => {
-                    setAlert('');
-                }, 4000);
+                location.href = "/";
                 reset();
             })
             .catch(({ response }) => {
                 setLoader(false);
-                setError(response.data);
-                setTimeout(() => {
-                    setError('');
-                }, 4000);
+                setError('Password: '+response.data);
             });
     }
 
@@ -48,14 +40,10 @@ const SignUpForm = () => {
         <SimpleGrid paddingX={5} columns={gridColumns}>
             <Card py={4}>
                 <CardHeader pt={1} pb={0}>
-                    {loader && <Spinner className="mb-3"/>}
-                    {error && <Alert status="error" mb={4} fontSize={fontSizes} className="mb-3">
+                    {loader && <Spinner fontSize={fontSizes} className="mb-3"/>}
+                    {error && <Alert status="warning" mb={4} fontSize={fontSizes} className="mb-3">
                         <AlertIcon />
                         {error}
-                    </Alert>}
-                    {alert && <Alert status="success" mb={4} fontSize={fontSizes} className="mb-3">
-                        <AlertIcon />
-                        {alert}
                     </Alert>}
                     <Text fontSize={headingSizes} fontWeight={600} mb={4}>Create new account</Text>
                 </CardHeader>
@@ -64,22 +52,22 @@ const SignUpForm = () => {
                         <div className="form-group mb-3">
                             <label htmlFor="name" className="label form-label">Name</label>
                             <Input {...register("name", { required: "Name is required.", minLength: { value: 5, message: "Name must be at least 5 characters long."} })} id="name" type="text" size={buttonSizes} placeholder="Enter name" />
-                            {errors.name && <p className="text-danger">{errors.name?.message}</p>}
+                            {errors.name && <Text fontSize={fontSizes} color="red">{errors.name?.message}</Text>}
                         </div>
                         <div className="form-group mb-3">
                                 <label htmlFor="email" className="label form-label">Email</label>
                                 <Input {...register("email", { required: "Email is required.", minLength: { value: 5, message: "Email must be at least 5 characters long."} })} id="email" type="text" size={buttonSizes} placeholder="Enter email" />
-                                {errors.email && <p className="text-danger">{errors.email?.message}</p>}
+                                {errors.email && <Text fontSize={fontSizes} color="red">{errors.email?.message}</Text>}
                         </div>
                         <div className="form-group mb-3">
                                 <label htmlFor="mobile" className="label form-label">Mobile</label>
                                 <Input {...register("mobile", { required: "Mobile is required.", minLength: {value: 10, message: "Mobile no must be 10 digits."} })} id="mobile" type="number" size={buttonSizes} placeholder="Enter mobile" />
-                                {errors.mobile && <p className="text-danger">{errors.mobile?.message}</p>}
+                                {errors.mobile && <Text fontSize={fontSizes} color="red">{errors.mobile?.message}</Text>}
                         </div>
                         <div className="form-group mb-3">
                             <label htmlFor="password" className="label form-label">Password</label>
                             <Input {...register("password", { required: "Password is required.", minLength: { value: 8, message: "Password must be at least 8 characters long." } })} id="password" type="password" size={buttonSizes} placeholder="Enter password" />
-                            {errors.password && <p className="text-danger">{errors.password?.message}</p>}
+                            {errors.password && <Text fontSize={fontSizes} color="red">{errors.password?.message}</Text>}
                         </div>
                         <Button size={buttonSizes} colorScheme="green" type="submit" >Sign up</Button>
                     </form>

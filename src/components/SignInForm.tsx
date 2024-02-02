@@ -18,6 +18,7 @@ const SignInForm = () => {
     const [params] = useSearchParams();
     const headingSizes = { base: "18px", sm: "18px", md: "20px", lg: "22px", xl: "22px" };
     const buttonSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md' };
+    const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
     const gridColumns = { base: 1, sm: 1, md: 2, lg: 2, xl: 2 };
 
     const onSubmit = (data: User) => {
@@ -48,7 +49,7 @@ const SignInForm = () => {
             <SimpleGrid columns={gridColumns} paddingX={5}>
                 <Card py={4}>
                     <CardHeader pt={1} pb={0}>
-                        {loader && <Spinner className="mb-3"/>}
+                        {loader && <Spinner fontSize={fontSizes} className="mb-3"/>}
                         {error && <Alert status="error" className="mb-3">
                             <AlertIcon />
                             {error}
@@ -60,12 +61,12 @@ const SignInForm = () => {
                             <div className="form-group mb-3">
                                 <label htmlFor="email" className="label form-label">Email</label>
                                 <Input {...register("email", { required: "Email is required.", minLength: { value: 5, message: "Email must be at least 5 characters long."} })} size={buttonSizes} id="email" type="text" placeholder="Enter email" />
-                                {errors.email && <p className="text-danger">{errors.email?.message}</p>}
+                                {errors.email && <Text fontSize={fontSizes} color="red">{errors.email?.message}</Text>}
                             </div>
                             <div className="form-group mb-3">
                                 <label htmlFor="password" className="label form-label">Password</label>
                                 <Input {...register("password", { required: "Password is required.", minLength: { value: 8, message: "Password must be at least 8 characters long." } })} size={buttonSizes} id="password" type="password" className="form-control form-control-sm" placeholder="Enter password" />
-                                {errors.password && <p className="text-danger">{errors.password?.message}</p>}
+                                {errors.password && <Text fontSize={fontSizes} color="red">{errors.password?.message}</Text>}
                             </div>
                             <Button size={buttonSizes} colorScheme="green" type="submit" >Login</Button>
                         </form>
