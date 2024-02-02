@@ -39,7 +39,7 @@ const Cart = () => {
                                 <Grid templateColumns="repeat(4, 1fr)">
                                     <GridItem colSpan={3}>
                                         <Text fontSize={fontSizes} fontWeight={600}>{item.pId.title}</Text>
-                                        <Text fontSize={fontSizes}>Price: {item.pId.price}</Text>
+                                        <Text fontSize={fontSizes}>Price: ${item.pId.price}</Text>
                                     </GridItem>
                                     <GridItem colSpan={1}>
                                         <Image boxSize={"100px"} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+item.pId.photo.name}/>
