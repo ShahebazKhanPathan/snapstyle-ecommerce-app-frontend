@@ -31,10 +31,11 @@ const Payment = () => {
     if (!token && params.get('pid')) return <Navigate to={"/signin?page=payment&pid="+params.get('pid')} />;
 
     const gridColumns = { base: 1, sm: 1, md: 1, lg: 2, xl: 2 };
-    const imageHeight = { base: "120px", sm: "120px", md: "140px", lg: "160px", xl: "200px" };
+    const imageHeight = { base: "150px", md: "200px", lg: "300px", xl: "400px" };
     const headingSizes = { base: "20px", sm: "20px", md: "20px", lg: "22px", xl: "22px" };
     const buttonSizes = { base: 'sm', sm: 'sm', md: 'sm', lg: 'md' };
     const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
+    const boxSizes = { base: "240px", sm: "260px", md: "280px", lg: "320px", xl: "360px" };
     const [product, setProduct] = useState<Product>();
     const [loadingSkeleton, setSkeleton] = useState(true);
     const [loadingSpinner, setSpinner] = useState(false);
@@ -159,7 +160,7 @@ const Payment = () => {
                         <Card>
                             <CardBody>
                                 <Heading mb={5} size="sm">{product?.title}</Heading>
-                                <Image mb={5} height={imageHeight} src={"https://snapstyle.s3.us-west-1.amazonaws.com/" + product?.photo.name} />
+                                <Image mb={5} boxSize={boxSizes} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/" + product?.photo.name} />
                                 <HStack>
                                     <Text fontSize={fontSizes}>Price: </Text>
                                     <Spacer />
