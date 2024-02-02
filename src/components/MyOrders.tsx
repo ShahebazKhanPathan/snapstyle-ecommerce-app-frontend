@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Divider, Text, Grid, GridItem, Heading, Image, SimpleGrid } from "@chakra-ui/react"
+import { Card, CardBody, Text, Grid, GridItem, Image, SimpleGrid,} from "@chakra-ui/react"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -23,9 +23,10 @@ const MyOrders = () => {
     const token = localStorage.getItem("auth-token");
     if (!token) return <Navigate to={"/"}/>;
     const [orders, setOrders] = useState<Info[]>([]);
+    const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
 
-    const getMyOrders = () => {
-        axios.get(
+    const getMyOrders = async() => {
+        await axios.get(
             "https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/orders",
             { headers: { "auth-token": token } }
         )
@@ -41,49 +42,27 @@ const MyOrders = () => {
     }, []);
 
     return (
-        <SimpleGrid paddingX={5}>
-            <Card>
-                <CardHeader>
-                    <Heading size="md">My Orders ({orders.length})</Heading>
-                </CardHeader>
-                <CardBody>
-                    {orders.map((order) => 
-                        <>
-                            <Grid gap={4} templateColumns="repeat(6, 1fr)">
+        <>
+            <Text px={2} fontWeight={500} fontSize={fontSizes}>My Orders ({orders.length})</Text>
+            <SimpleGrid paddingX={5} spacing={4}>
+                {orders.map((order) => 
+                    <Card>
+                        <CardBody>
+                            <Grid templateColumns="repeat(4, 1fr)">
                                 <GridItem colSpan={3}>
-                                    <Text>Order ID: {order._id}</Text>
-                                    <Text fontWeight={700}>{order.title}</Text>
-                                    <div>
-                                        {order.userName} <br />
-                                        {order.email} <br />
-                                        {order.mobile} <br />
-                                        {order.address} <br />
-                                    </div>
-                                    <br />
-                                    <Text>Date: {order.date.substring(0,24)}</Text>
+                                    <Text fontSize={fontSizes} fontWeight={600}>{order.title}</Text>
+                                    <Text fontSize={fontSizes}>Order ID: {order._id}</Text>
                                 </GridItem>
                                 <GridItem colSpan={1}>
-                                    <Image boxSize="120px" objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image} />
-                                </GridItem>
-                                <GridItem colSpan={2}>
-                                    <Card>
-                                        <CardBody>
-                                            <Text fontWeight={700}>Payment details</Text>
-                                            Price: ${order.price} <br />
-                                            Taxes: ${order.taxes} <br />
-                                            Shipping charges: ${order.shippingCharges}
-                                            <Text mt={3} fontWeight={700} fontSize="20px">Total: ${order.total}</Text>
-                                        </CardBody>
-                                    </Card>
+                                    <Image boxSize={"100px"} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image}/>
                                 </GridItem>
                             </Grid>
-                            <Divider />
-                        </>
-                    )}
-                </CardBody>
-            </Card>
-            
-        </SimpleGrid>
+                            </CardBody>
+                    </Card>
+                )
+                }
+            </SimpleGrid>
+        </>
     );
 }
 

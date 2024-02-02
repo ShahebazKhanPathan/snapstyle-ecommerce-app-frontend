@@ -18,6 +18,7 @@ function App() {
   const [isToken, setToken] = useState(false);
   const buttonSizes = { base: 'xs', sm: 'xs', md: 'sm', lg: 'md' };
   const menuLinkSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md', xl: 'md' };
+  const iconSizes = { base: "18px", sm: "20px", md: "22px", lg: "24px", xl: "24px" };
   const fontWeight = '400';
   const buttonVariant = 'ghost';
   const [drawer, setDrawer] = useState(false);
@@ -64,7 +65,7 @@ function App() {
         alignItems="center">
         
         <GridItem colSpan={{ base: 3, sm: 3, md: 1 }}>
-          <Box width={{ base: "160px", sm: "180px", md: "180px", lg: "220px", xl: "220px" }}>
+          <Box width={{ base: "170px", sm: "180px", md: "180px", lg: "220px", xl: "220px" }}>
             <Stack direction="row">
               <Show below="md">
                 <IconButton onClick={() => setDrawer(true)} variant="ghost" colorScheme="green" aria-label="menu" size="sm" icon={<IoMenu />} />
@@ -127,13 +128,14 @@ function App() {
         <GridItem colSpan={{base: 3, sm: 3, md: 2, lg: 2, xl: 2}}>
           {isToken
             ?
-            <Box>
-              <Link to={"/cart"}><Button size={buttonSizes} leftIcon={<FaShoppingCart />} variant="ghost" colorScheme="green">
-                <span className="badge rounded-pill text-bg-danger"></span></Button>
+            <Box textAlign={{base: "right", xl: "center"}} mr={{base: "10px"}}>
+              <Link to={"/cart"}>
+                <Icon as={FaShoppingCart} fontSize={iconSizes} color={"green"}/>
+                <span className="badge rounded-pill text-bg-danger"></span>
               </Link>
               <Menu>
-                <MenuButton p={0} fontSize={buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown />}>
-                  Account
+                <MenuButton fontSize={buttonSizes} ml={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5}}  variant="ghost" colorScheme="green" as={Button} rightIcon={<FaChevronDown />}>
+                  <Icon as={FaUserCircle} color={"green"}/> Account
                 </MenuButton>
                 <MenuList>
                   <MenuItem fontSize={buttonSizes}>
@@ -148,7 +150,7 @@ function App() {
               </Menu>
             </Box>
             :
-            <>
+            <Box textAlign={{base: "right", lg: "left", xl: "center"}} mr={{md: "10px"}}>
               <Menu>
                 <MenuButton padding={0} size={buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown/>}>
                   Login
@@ -163,7 +165,7 @@ function App() {
                 </MenuList>
               </Menu>
               <Link to={"/signup"}><Button colorScheme="green" variant="ghost" size={buttonSizes} leftIcon={<ImUserPlus  />}>Sign Up</Button></Link>
-            </>
+            </Box>
           }
         </GridItem>
 
