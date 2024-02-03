@@ -21,7 +21,7 @@ const Category = () => {
     const imageHeight = { base: "100px", md: "150px", lg: "160px", xl: "250px" };
     const boxSizes = { base: "120px", sm: "120", md: "150px", lg: "160px", xl: "240px" };
     const fontSizes = { base: "14px", md: "12px", lg: "18px", xl: "18px" };
-    const headingSizes = { base: "18px", md: "xs", lg: "sm", xl: "md" };
+    const headingSizes = { base: "18px", sm: "18px", md: "20px", lg: "20px", xl: "20px"  };
     const gridColumns = { base: 2, sm: 3, md: 3, lg: 3, xl: 4 };
     const skeletons = [1, 2, 3, 4];
 

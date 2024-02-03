@@ -18,7 +18,6 @@ export interface Product{
 const Product = () => {
 
     const { setCount } = useCart();
-
     const gridColumns = { base: 1, sm: 1, md: 1, lg: 2, xl: 2 };
     const imageHeight = { base: "150px", md: "200px", lg: "300px", xl: "400px" };
     const boxSizes = { base: "240px", sm: "260px", md: "280px", lg: "320px", xl: "360px" };
