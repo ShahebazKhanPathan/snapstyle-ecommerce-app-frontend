@@ -8,9 +8,15 @@ import { FaTshirt, FaLaptop } from "react-icons/fa";
 import { MdToys } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { IoCube, IoMenu } from "react-icons/io5";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
+type ContextType = { setCount: (count: number) => void };
+
+export function useCart() {
+  return useOutletContext<ContextType>();
+}
 
 function App() {
 
@@ -22,6 +28,7 @@ function App() {
   const fontWeight = '400';
   const buttonVariant = 'ghost';
   const [drawer, setDrawer] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const logOut = async () => {
     await axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
@@ -37,7 +44,10 @@ function App() {
   const checkTokenExpiry = async () => {
     if (token) {
       await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
-      .then(() => setToken(true))
+        .then(({ data }) => {
+          setCartCount(data.length);
+          setToken(true)
+        })
       .catch(() => setToken(false));
     }
   }
@@ -130,8 +140,8 @@ function App() {
             ?
             <Box textAlign={{base: "right", xl: "center"}} mr={{base: "10px"}}>
               <Link to={"/cart"}>
-                <span className="badge rounded-pill text-bg-danger"></span>
-                <Icon as={FaShoppingCart} fontSize={iconSizes} color={"green"}/>
+                <span className="badge rounded-pill text-bg-danger">{cartCount>0 ? cartCount : ''}</span>
+                <Icon as={FaShoppingCart} ml={1} fontSize={iconSizes} color={"green"}/>
               </Link>
               <Menu>
                 <MenuButton fontSize={buttonSizes} ml={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5}}  variant="ghost" colorScheme="green" as={Button} rightIcon={<FaChevronDown />}>
@@ -194,7 +204,9 @@ function App() {
         </Show>
 
         <GridItem colSpan={{ base: 5, sm: 5, md: 5, lg: 4, xl: 4 }}>
-          <Outlet />
+          <Outlet context={ { setCount(count) {
+            setCartCount(cartCount + count);
+          },} satisfies ContextType } />
         </GridItem>
       </Grid>
     </>
