@@ -2,13 +2,15 @@ import { Button, Card, CardBody, Divider, Grid, GridItem, HStack, Image, Input, 
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 interface Item{
+    _id: string;
     pId: {
         title: string;
         price: number;
         photo: { name: string };
+        _id: string;
     }
 }
 
@@ -44,6 +46,7 @@ const Cart = () => {
             <SimpleGrid columns={gridColumns} paddingX={5} spacing={4}>
                 <GridItem colSpan={{ lg: 2, xl: 2}}>
                     {cart.map((item) => 
+                        <Link to={"/product?pid="+item.pId._id} key={item._id}>
                         <Card mb={3}>
                             <CardBody>
                                 <Grid templateColumns="repeat(4, 1fr)">
@@ -57,6 +60,7 @@ const Cart = () => {
                                 </Grid>
                                 </CardBody>
                         </Card>
+                            </Link>
                     )
                     }
                 </GridItem>
@@ -67,7 +71,7 @@ const Cart = () => {
                             <Text mb={5} fontWeight={500} fontSize={headingSizes}>Cart</Text>
                             {cart.map((item) => {
                                 total = total + item.pId.price;
-                                return <HStack>
+                                return <HStack key={item._id}>
                                     <Text noOfLines={1} fontSize={fontSizes}>{item.pId.title}</Text>
                                     <Spacer />
                                     <Text fontSize={fontSizes} textAlign="right">${item.pId.price}</Text>
