@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, Divider, Grid, GridItem, HStack, Image, Input, SimpleGrid, Spacer, Text} from "@chakra-ui/react"
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
@@ -31,7 +31,7 @@ const Cart = () => {
     var shippingCharges = 1;
 
     const getCartItems = async () => {
-        await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/cart", { headers: { "auth-token": token }})
+        await apiClient.get("/api/cart", { headers: { "auth-token": token }})
             .then(({ data }) => setCart(data))
             .catch((err) => console.log(err.message));
     }

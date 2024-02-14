@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, Button, Divider, Heading, Input, Select, SimpleGrid, Spinner, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -31,7 +31,7 @@ const Products = () => {
     const [products, setProducts] = useState<Product[]>([]);
 
     const getProducts = () => {
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product")
+        apiClient.get("/api/product")
             .then((res) => setProducts(res.data))
             .catch((err) => setError(err.message));
     }
@@ -40,7 +40,7 @@ const Products = () => {
         setLoader(true);
         setAlert("");
         setError("");
-        axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
+        apiClient.delete("/api/product/" + id)
             .then(() => {
                 setLoader(false);
                 setAlert("Product removed successfully!");
@@ -69,9 +69,9 @@ const Products = () => {
         setLoader(true);
         setAlert("");
         setError("");
-        axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product", data)
+        apiClient.post("/api/product", data)
             .then((res) => {
-                axios.put(
+                apiClient.put(
                     res.data,
                     image[0],
                     { headers: { "Content-Type": `${data.photo[0].type}`} }

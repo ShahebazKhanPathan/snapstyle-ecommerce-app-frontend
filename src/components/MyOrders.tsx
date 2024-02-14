@@ -1,5 +1,5 @@
 import { Card, CardBody, Text, Grid, GridItem, Image, SimpleGrid,} from "@chakra-ui/react"
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -26,8 +26,8 @@ const MyOrders = () => {
     const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
 
     const getMyOrders = async() => {
-        await axios.get(
-            "https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/orders",
+        await apiClient.get(
+            "/api/orders",
             { headers: { "auth-token": token } }
         )
             .then(({ data }) => {

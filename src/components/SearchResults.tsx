@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, Heading, Image, Progress, SimpleGrid, Text } from "@chakra-ui/react";
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -21,7 +21,7 @@ const SearchResults = () => {
     useEffect(() => {
         setLoader(true);
         setProducts([]);
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/search/" + params.get("query"))
+        apiClient.get("/api/product/search/" + params.get("query"))
             .then(({ data }) => {
                 setLoader(false);
                 setProducts(data);

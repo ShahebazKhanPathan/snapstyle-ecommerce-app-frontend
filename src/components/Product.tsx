@@ -1,5 +1,5 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Center, Divider, HStack, Image, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { HiMiniCurrencyDollar  } from "react-icons/hi2";
@@ -34,7 +34,7 @@ const Product = () => {
     const id = params.get("pid");
 
     const getProduct = async (id: string | null) => {
-        await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
+        await apiClient.get("/api/product/" + id)
             .then(({ data }) => {
                 setProduct(data);
                 setSkeleton(false);
@@ -50,8 +50,8 @@ const Product = () => {
         if (!localStorage.getItem("auth-token")) return location.href = "/signin?page=product&pid=" + id;
         setLoader(true);
         
-        await axios.post(
-            "https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/cart",
+        await apiClient.post(
+            "/api/cart",
             { pId: id },
             { headers: { "auth-token": localStorage.getItem("auth-token")}}
         ).then(() => {

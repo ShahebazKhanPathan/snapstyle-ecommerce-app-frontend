@@ -1,6 +1,6 @@
 import { Alert, AlertIcon, Button, Card, CardBody, CardHeader, Input, SimpleGrid, Spinner, Text } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useState } from "react";
 
 interface User{
@@ -23,7 +23,7 @@ const SignUpForm = () => {
     const onSubmit = (data: User) => {
         setLoader(true);
         setError('');
-        axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users", data)
+        apiClient.post("/api/users", data)
             .then(({ data }) => {
                 setLoader(false);
                 localStorage.setItem("auth-token", data);               

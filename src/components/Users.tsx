@@ -1,5 +1,5 @@
 import { Heading, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ const Users = () => {
     let srNo = 0;
 
     const getUsers = () => {
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/users")
+        apiClient.get("/api/users")
             .then((res) => setUsers(res.data))
             .catch((err) => console.log(err.message));
     }

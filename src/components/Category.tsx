@@ -1,5 +1,5 @@
 import { AbsoluteCenter, Card, CardBody, Center, HStack, Image, SimpleGrid, Skeleton, Text } from "@chakra-ui/react"
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const Category = () => {
         setProducts([]);
         setProductsLabel("");
         setSkeleton(true);
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/category/"+params.get("name"))
+        apiClient.get("/api/product/category/"+params.get("name"))
             .then(({ data }) => {
                 setSkeleton(false);
                 if (data.length == 0) {

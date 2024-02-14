@@ -1,5 +1,5 @@
 import { Heading, Image, SimpleGrid, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Info } from "./MyOrders";
@@ -13,7 +13,7 @@ const Orders = () => {
     let srNo = 0;
 
     const getOrders = () => {
-        axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/orders/admin", { headers: { "admin-auth-token": token }})
+        apiClient.get("/api/orders/admin", { headers: { "admin-auth-token": token }})
             .then(({ data }) => setOrders(data))
             .catch((err) => console.log(err.message));
     }

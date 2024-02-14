@@ -1,5 +1,5 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Card, CardBody, HStack, Heading, Image, Input, SimpleGrid, Skeleton, Spacer, Text, Textarea } from "@chakra-ui/react";
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useSearchParams } from "react-router-dom";
@@ -49,7 +49,7 @@ const Payment = () => {
     const { handleSubmit, register, reset, formState: { errors } } = useForm<Order>();
 
     const getProduct = async (id: String | null) => {
-        await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/product/" + id)
+        await apiClient.get("/api/product/" + id)
             .then(({ data }) => {
                 setProduct(data);
                 setPrice(data.price);
@@ -79,8 +79,8 @@ const Payment = () => {
             pTotal: total               
         };
         setSpinner(true);
-        await axios.post(
-            "https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/orders",
+        await apiClient.post(
+            "/api/orders",
             orderData,
             { headers: { "auth-token": token } }
         ).then(({ data }) => {

@@ -1,7 +1,7 @@
 import { Alert, AlertIcon, Button, Card, CardBody, CardHeader, Input, SimpleGrid, Spinner, Text } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
+import apiClient from "../services/api-client";
 import { useState } from "react";
 
 interface Admin{
@@ -24,7 +24,7 @@ const AdminLogin = () => {
         setLoader(true);
         setAlert('');
         setError('');
-        axios.post("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/admin", data) 
+        apiClient.post("/api/admin", data) 
             .then(({ data }) => {
                 localStorage.setItem("admin-auth-token", data);
                 setLoader(false);

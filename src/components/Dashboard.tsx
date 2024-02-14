@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 import { FaChevronDown, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "../services/api-client";
 
 function Dashboard() {
 
@@ -14,7 +14,7 @@ function Dashboard() {
     const [isToken, setToken] = useState(false);
 
     const logOut = async() => {
-        await axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
+        await apiClient.delete("/api/blacklist",
             { headers: { "admin-auth-token": localStorage.getItem('admin-auth-token') } })
             .then(() => {
                 localStorage.removeItem("admin-auth-token");
@@ -26,7 +26,7 @@ function Dashboard() {
 
     const checkTokenExpiry = async () => {
         if (token) {
-            await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist", { headers: { "admin-auth-token": localStorage.getItem('admin-auth-token') } })
+            await apiClient.get("/api/blacklist", { headers: { "admin-auth-token": localStorage.getItem('admin-auth-token') } })
             .then(() => setToken(true))
             .catch(() => setToken(false));
         }
