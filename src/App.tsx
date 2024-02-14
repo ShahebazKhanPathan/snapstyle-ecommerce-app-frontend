@@ -10,7 +10,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { IoCube, IoMenu } from "react-icons/io5";
 import { Link, Outlet, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "./services/api-client";
 
 type ContextType = { setCount: (count: number) => void };
 
@@ -31,7 +31,7 @@ function App() {
   const [cartCount, setCartCount] = useState(0);
 
   const logOut = async () => {
-    await axios.delete("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist",
+    await apiClient.delete("/api/blacklist",
       { headers: { "auth-token": localStorage.getItem('auth-token') } })
       .then(() => {
         localStorage.removeItem("auth-token");
@@ -43,7 +43,7 @@ function App() {
 
   const checkTokenExpiry = async () => {
     if (token) {
-      await axios.get("https://3wgfbd5j22b67sjhebcjvhmpku0hnlrq.lambda-url.ap-south-1.on.aws/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
+      await apiClient.get("/api/blacklist", { headers: { "auth-token": localStorage.getItem('auth-token') } })
         .then(({ data }) => {
           setCartCount(data.length);
           setToken(true)
