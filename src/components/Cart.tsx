@@ -3,6 +3,7 @@ import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
 
 interface Item{
     _id: string;
@@ -46,22 +47,23 @@ const Cart = () => {
             <SimpleGrid columns={gridColumns} paddingX={5} spacing={4}>
                 <GridItem colSpan={{ lg: 2, xl: 2}}>
                     {cart.map((item) => 
-                        <Link to={"/product?pid="+item.pId._id} key={item._id}>
                         <Card mb={3}>
                             <CardBody>
                                 <Grid templateColumns="repeat(4, 1fr)">
                                     <GridItem colSpan={3}>
-                                        <Text fontSize={fontSizes} fontWeight={600}>{item.pId.title}</Text>
+                                        <Link to={"/product?pid="+item.pId._id} key={item._id}>
+                                            <Text fontSize={fontSizes} fontWeight={600}>{item.pId.title}</Text>
+                                        </Link>
                                         <Text fontSize={fontSizes}>Price: ${item.pId.price}</Text>
+                                        <Button leftIcon={<FaTrash />} size="xs" colorScheme="red">Remove</Button>
                                     </GridItem>
                                     <GridItem colSpan={1}>
                                         <Image boxSize={"100px"} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+item.pId.photo.name}/>
                                     </GridItem>
                                 </Grid>
-                                </CardBody>
+                            </CardBody>
                         </Card>
-                            </Link>
-                    )
+                        )
                     }
                 </GridItem>
 
