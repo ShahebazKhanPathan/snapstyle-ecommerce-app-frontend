@@ -11,6 +11,7 @@ import { IoCube, IoMenu } from "react-icons/io5";
 import { Link, Outlet, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiClient from "./services/api-client";
+import commonStyles from "./utils/commonCSS";
 
 type ContextType = { setCount: (count: number) => void };
 
@@ -22,11 +23,6 @@ function App() {
 
   const token = localStorage.getItem('auth-token');
   const [isToken, setToken] = useState(false);
-  const buttonSizes = { base: 'xs', sm: 'xs', md: 'sm', lg: 'md' };
-  const menuLinkSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md', xl: 'md' };
-  const iconSizes = { base: "18px", sm: "20px", md: "22px", lg: "24px", xl: "24px" };
-  const fontWeight = '400';
-  const buttonVariant = 'ghost';
   const [drawer, setDrawer] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
@@ -88,32 +84,32 @@ function App() {
                         <List spacing={2} padding={0}>
                           <ListItem>
                               <Link to={"/"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant={buttonVariant} leftIcon={<IoCube />}>All Products</Button>
+                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<IoCube />}>All Products</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Fashion"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant={buttonVariant} leftIcon={<FaTshirt />}>Fashion</Button>
+                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<FaTshirt />}>Fashion</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Electronics"} onClick={() => setDrawer(false)}>
-                              <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
+                              <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Appliances"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
+                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Furniture"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<GiSofa />}>Furniture</Button>
+                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<GiSofa />}>Furniture</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Toys"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={fontWeight} size={menuLinkSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
+                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
                               </Link>
                           </ListItem>
                         </List>
@@ -141,19 +137,19 @@ function App() {
             <Box textAlign={{base: "right", xl: "center"}} mr={{base: "10px"}}>
               <Link to={"/cart"}>
                 <span className="badge rounded-pill text-bg-danger">{cartCount>0 ? cartCount : ''}</span>
-                <Icon as={FaShoppingCart} ml={1} fontSize={iconSizes} color={"green"}/>
+                <Icon as={FaShoppingCart} ml={1} fontSize={commonStyles.iconSizes} color={"green"}/>
               </Link>
               <Menu>
-                <MenuButton fontSize={buttonSizes} ml={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5}}  variant="ghost" colorScheme="green" as={Button} rightIcon={<FaChevronDown />}>
+                <MenuButton fontSize={commonStyles.buttonSizes} ml={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5}}  variant="ghost" colorScheme="green" as={Button} rightIcon={<FaChevronDown />}>
                   <Icon as={FaUserCircle} color={"green"}/> Account
                 </MenuButton>
                 <MenuList>
-                  <MenuItem fontSize={buttonSizes}>
+                  <MenuItem fontSize={commonStyles.buttonSizes}>
                     <Link to={"/orders"}>
                       <Icon as={IoCube} color="green" /> My Orders
                     </Link>
                   </MenuItem>
-                  <MenuItem onClick={() => logOut()} fontSize={buttonSizes}>
+                  <MenuItem onClick={() => logOut()} fontSize={commonStyles.buttonSizes}>
                     <Icon as={FaSignOutAlt} color="green" mr={1} /> Logout
                   </MenuItem>
                 </MenuList>
@@ -162,19 +158,19 @@ function App() {
             :
             <Box textAlign={{base: "right", lg: "left", xl: "center"}} mr={{md: "10px"}}>
               <Menu>
-                <MenuButton padding={0} size={buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown/>}>
+                <MenuButton padding={0} size={commonStyles.buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown/>}>
                   Login
                 </MenuButton>
                 <MenuList>
-                  <MenuItem alignItems="center" fontSize={buttonSizes}> 
+                  <MenuItem alignItems="center" fontSize={commonStyles.buttonSizes}> 
                     <Link to={"/signin"}><Icon color="green" as={FaUserCircle} /> User</Link>
                   </MenuItem>
-                  <MenuItem alignItems="center" fontSize={buttonSizes}>
+                  <MenuItem alignItems="center" fontSize={commonStyles.buttonSizes}>
                     <Link to={"/admin"}><Icon color="green" as={MdAdminPanelSettings} /> Admin</Link>
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <Link to={"/signup"}><Button colorScheme="green" variant="ghost" size={buttonSizes} leftIcon={<ImUserPlus  />}>Sign Up</Button></Link>
+              <Link to={"/signup"}><Button colorScheme="green" variant="ghost" size={commonStyles.buttonSizes} leftIcon={<ImUserPlus  />}>Sign Up</Button></Link>
             </Box>
           }
         </GridItem>

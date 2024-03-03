@@ -47,7 +47,7 @@ const Cart = () => {
             <SimpleGrid columns={gridColumns} paddingX={5} spacing={4}>
                 <GridItem colSpan={{ lg: 2, xl: 2}}>
                     {cart.map((item) => 
-                        <Card mb={3}>
+                        <Card mb={3} key={item._id}>
                             <CardBody>
                                 <Grid templateColumns="repeat(4, 1fr)">
                                     <GridItem colSpan={3}>
