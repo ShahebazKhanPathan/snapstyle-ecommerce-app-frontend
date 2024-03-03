@@ -19,9 +19,10 @@ export function useCart() {
   return useOutletContext<ContextType>();
 }
 
-function App() {
+const token = localStorage.getItem('auth-token');
 
-  const token = localStorage.getItem('auth-token');
+function App() {
+  
   const [isToken, setToken] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -84,32 +85,32 @@ function App() {
                         <List spacing={2} padding={0}>
                           <ListItem>
                               <Link to={"/"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<IoCube />}>All Products</Button>
+                                  <Button fontWeight={commonStyles.app.fontWeight} size={commonStyles.app.menuLinkSizes} variant="ghost" leftIcon={<IoCube />}>All Products</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Fashion"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<FaTshirt />}>Fashion</Button>
+                                  <Button fontWeight={commonStyles.app.fontWeight} size={commonStyles.app.menuLinkSizes} variant="ghost" leftIcon={<FaTshirt />}>Fashion</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Electronics"} onClick={() => setDrawer(false)}>
-                              <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
+                              <Button fontWeight={commonStyles.app.fontWeight} size={commonStyles.app.menuLinkSizes} variant="ghost" leftIcon={<FaLaptop />}>Electronics</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Appliances"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
+                                  <Button fontWeight={commonStyles.app.fontWeight} size={commonStyles.app.menuLinkSizes} variant="ghost" leftIcon={<GiWashingMachine />}>Appliances</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Furniture"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<GiSofa />}>Furniture</Button>
+                                  <Button fontWeight={commonStyles.app.fontWeight} size={commonStyles.app.menuLinkSizes} variant="ghost" leftIcon={<GiSofa />}>Furniture</Button>
                               </Link>
                           </ListItem>
                           <ListItem>
                               <Link to={"/category?name=Toys"} onClick={() => setDrawer(false)}>
-                                  <Button fontWeight={commonStyles.fontWeight} size={commonStyles.menuLinkSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
+                                  <Button fontWeight={commonStyles.app.fontWeight} size={commonStyles.app.menuLinkSizes} variant="ghost" leftIcon={<MdToys />}>Toys</Button>
                               </Link>
                           </ListItem>
                         </List>
@@ -137,19 +138,19 @@ function App() {
             <Box textAlign={{base: "right", xl: "center"}} mr={{base: "10px"}}>
               <Link to={"/cart"}>
                 <span className="badge rounded-pill text-bg-danger">{cartCount>0 ? cartCount : ''}</span>
-                <Icon as={FaShoppingCart} ml={1} fontSize={commonStyles.iconSizes} color={"green"}/>
+                <Icon as={FaShoppingCart} ml={1} fontSize={commonStyles.app.iconSizes} color={"green"}/>
               </Link>
               <Menu>
-                <MenuButton fontSize={commonStyles.buttonSizes} ml={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5}}  variant="ghost" colorScheme="green" as={Button} rightIcon={<FaChevronDown />}>
+                <MenuButton fontSize={commonStyles.app.buttonSizes} ml={{ base: 2, sm: 2, md: 3, lg: 4, xl: 5}}  variant="ghost" colorScheme="green" as={Button} rightIcon={<FaChevronDown />}>
                   <Icon as={FaUserCircle} color={"green"}/> Account
                 </MenuButton>
                 <MenuList>
-                  <MenuItem fontSize={commonStyles.buttonSizes}>
+                  <MenuItem fontSize={commonStyles.app.buttonSizes}>
                     <Link to={"/orders"}>
                       <Icon as={IoCube} color="green" /> My Orders
                     </Link>
                   </MenuItem>
-                  <MenuItem onClick={() => logOut()} fontSize={commonStyles.buttonSizes}>
+                  <MenuItem onClick={() => logOut()} fontSize={commonStyles.app.buttonSizes}>
                     <Icon as={FaSignOutAlt} color="green" mr={1} /> Logout
                   </MenuItem>
                 </MenuList>
@@ -158,19 +159,19 @@ function App() {
             :
             <Box textAlign={{base: "right", lg: "left", xl: "center"}} mr={{md: "10px"}}>
               <Menu>
-                <MenuButton padding={0} size={commonStyles.buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown/>}>
+                <MenuButton padding={0} size={commonStyles.app.buttonSizes} variant="ghost" colorScheme="green" as={Button} leftIcon={<FaUserCircle />} rightIcon={<FaChevronDown/>}>
                   Login
                 </MenuButton>
                 <MenuList>
-                  <MenuItem alignItems="center" fontSize={commonStyles.buttonSizes}> 
+                  <MenuItem alignItems="center" fontSize={commonStyles.app.buttonSizes}> 
                     <Link to={"/signin"}><Icon color="green" as={FaUserCircle} /> User</Link>
                   </MenuItem>
-                  <MenuItem alignItems="center" fontSize={commonStyles.buttonSizes}>
+                  <MenuItem alignItems="center" fontSize={commonStyles.app.buttonSizes}>
                     <Link to={"/admin"}><Icon color="green" as={MdAdminPanelSettings} /> Admin</Link>
                   </MenuItem>
                 </MenuList>
               </Menu>
-              <Link to={"/signup"}><Button colorScheme="green" variant="ghost" size={commonStyles.buttonSizes} leftIcon={<ImUserPlus  />}>Sign Up</Button></Link>
+              <Link to={"/signup"}><Button colorScheme="green" variant="ghost" size={commonStyles.app.buttonSizes} leftIcon={<ImUserPlus  />}>Sign Up</Button></Link>
             </Box>
           }
         </GridItem>
