@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
+import commonStyles from "../utils/commonCSS";
 
 interface Item{
     _id: string;
@@ -23,11 +24,6 @@ const Cart = () => {
     const [cart, setCart] = useState<Item[]>([]);
     const [loadingSpinner] = useState(false);
     const { register } = useForm();
-    const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
-    const gridColumns = { base: 1, sm: 1, md: 1, lg: 1, xl: 3 };
-    const headingSizes = { base: "20px", sm: "20px", md: "20px", lg: "22px", xl: "22px" };
-    const buttonSizes = { base: 'sm', sm: 'sm', md: 'sm', lg: 'md' };
-    
     var total = 0;
     var shippingCharges = 1;
 
@@ -43,8 +39,8 @@ const Cart = () => {
 
     return (
         <>
-            <Text px={2} fontWeight={500} fontSize={fontSizes}>My Cart ({cart.length})</Text>
-            <SimpleGrid columns={gridColumns} paddingX={5} spacing={4}>
+            <Text px={2} fontWeight={500} fontSize={commonStyles.fontSizes}>My Cart ({cart.length})</Text>
+            <SimpleGrid columns={commonStyles.cart.gridColumns} paddingX={5} spacing={4}>
                 <GridItem colSpan={{ lg: 2, xl: 2}}>
                     {cart.map((item) => 
                         <Card mb={3} key={item._id}>
@@ -52,9 +48,9 @@ const Cart = () => {
                                 <Grid templateColumns="repeat(4, 1fr)">
                                     <GridItem colSpan={3}>
                                         <Link to={"/product?pid="+item.pId._id} key={item._id}>
-                                            <Text fontSize={fontSizes} fontWeight={600}>{item.pId.title}</Text>
+                                            <Text fontSize={commonStyles.fontSizes} fontWeight={600}>{item.pId.title}</Text>
                                         </Link>
-                                        <Text fontSize={fontSizes}>Price: ${item.pId.price}</Text>
+                                        <Text fontSize={commonStyles.fontSizes}>Price: ${item.pId.price}</Text>
                                         <Button leftIcon={<FaTrash />} size="xs" colorScheme="red">Remove</Button>
                                     </GridItem>
                                     <GridItem colSpan={1}>
@@ -70,41 +66,41 @@ const Cart = () => {
                 <GridItem colSpan={{ lg:1, xl: 1}}>
                     <Card>
                         <CardBody>
-                            <Text mb={5} fontWeight={500} fontSize={headingSizes}>Cart</Text>
+                            <Text mb={5} fontWeight={500} fontSize={commonStyles.cart.headingSizes}>Cart</Text>
                             {cart.map((item) => {
                                 total = total + item.pId.price;
                                 return <HStack key={item._id}>
-                                    <Text noOfLines={1} fontSize={fontSizes}>{item.pId.title}</Text>
+                                    <Text noOfLines={1} fontSize={commonStyles.fontSizes}>{item.pId.title}</Text>
                                     <Spacer />
-                                    <Text fontSize={fontSizes} textAlign="right">${item.pId.price}</Text>
+                                    <Text fontSize={commonStyles.fontSizes} textAlign="right">${item.pId.price}</Text>
                                     </HStack>
                                 }
                             )}
                             <Divider/>
                                 <HStack>
-                                    <Text fontSize={fontSizes}>Taxes: </Text>
+                                    <Text fontSize={commonStyles.fontSizes}>Taxes: </Text>
                                     <Spacer />
-                                <Text fontSize={fontSizes} textAlign="right">${total/100*10}</Text>
+                                <Text fontSize={commonStyles.fontSizes} textAlign="right">${total/100*10}</Text>
                                 </HStack>
                                 <HStack>
-                                    <Text fontSize={fontSizes}>Shipping charges: </Text>
+                                    <Text fontSize={commonStyles.fontSizes}>Shipping charges: </Text>
                                     <Spacer />
-                                <Text fontSize={fontSizes} textAlign="right">${shippingCharges}</Text>
+                                <Text fontSize={commonStyles.fontSizes} textAlign="right">${shippingCharges}</Text>
                                 </HStack>
                                 <HStack mb={5}>
-                                    <Text fontWeight={500} fontSize={headingSizes}>Total: </Text>
+                                    <Text fontWeight={500} fontSize={commonStyles.cart.headingSizes}>Total: </Text>
                                     <Spacer />
-                                <Text fontWeight={500} fontSize={headingSizes} textAlign="right">${total}</Text>
+                                <Text fontWeight={500} fontSize={commonStyles.cart.headingSizes} textAlign="right">${total}</Text>
                                 </HStack>
                                 <div className="form-group mb-3">
-                                    <Input {...register("card.cardNo", { required: "Card No. is required.", minLength: {value: 12, message: "Card no must be 12 digits."} })} size={buttonSizes} type="number" id="cardNo" placeholder="Credit or Debit Card no." />
-                                    {<Text fontSize={fontSizes} color="red"></Text>}
+                                    <Input {...register("card.cardNo", { required: "Card No. is required.", minLength: {value: 12, message: "Card no must be 12 digits."} })} size={commonStyles.cart.buttonSizes} type="number" id="cardNo" placeholder="Credit or Debit Card no." />
+                                    {<Text fontSize={commonStyles.fontSizes} color="red"></Text>}
                                 </div>
                                 <HStack mb={5}>
-                                    <Input {...register("card.expiry", { required: true, minLength: { value: 5, message: "Date must be like 01/23" } })} size={buttonSizes} width="70%" type="text" id="expiry" placeholder="Expiry date" />
-                                    <Input {...register("card.cvvNo", { required: true, minLength: { value: 3, message: "CVV 3 digits required" } })} size={buttonSizes} width="30%" type="number" id="cvvNo" placeholder="CVV" />
+                                    <Input {...register("card.expiry", { required: true, minLength: { value: 5, message: "Date must be like 01/23" } })} size={commonStyles.cart.buttonSizes} width="70%" type="text" id="expiry" placeholder="Expiry date" />
+                                    <Input {...register("card.cvvNo", { required: true, minLength: { value: 3, message: "CVV 3 digits required" } })} size={commonStyles.cart.buttonSizes} width="30%" type="number" id="cvvNo" placeholder="CVV" />
                                 </HStack>
-                                <Button isLoading={loadingSpinner} width="20%" size={buttonSizes} colorScheme="yellow" type="submit" >Pay</Button>
+                                <Button isLoading={loadingSpinner} width="20%" size={commonStyles.cart.buttonSizes} colorScheme="yellow" type="submit" >Pay</Button>
                         </CardBody>
                     </Card>
                  

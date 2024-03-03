@@ -2,6 +2,7 @@ import { Card, CardBody, Text, Grid, GridItem, Image, SimpleGrid,} from "@chakra
 import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import commonStyles from "../utils/commonCSS";
 
 export interface Info{
     _id: string;
@@ -23,7 +24,6 @@ const MyOrders = () => {
     const token = localStorage.getItem("auth-token");
     if (!token) return <Navigate to={"/"}/>;
     const [orders, setOrders] = useState<Info[]>([]);
-    const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
 
     const getMyOrders = async() => {
         await apiClient.get(
@@ -43,15 +43,15 @@ const MyOrders = () => {
 
     return (
         <>
-            <Text px={2} fontWeight={500} fontSize={fontSizes}>My Orders ({orders.length})</Text>
+            <Text px={2} fontWeight={500} fontSize={commonStyles.fontSizes}>My Orders ({orders.length})</Text>
             <SimpleGrid paddingX={5} spacing={4}>
                 {orders.map((order) => 
                     <Card>
                         <CardBody>
                             <Grid templateColumns="repeat(4, 1fr)">
                                 <GridItem colSpan={3}>
-                                    <Text fontSize={fontSizes} fontWeight={600}>{order.title}</Text>
-                                    <Text fontSize={fontSizes}>Order ID: {order._id}</Text>
+                                    <Text fontSize={commonStyles.fontSizes} fontWeight={600}>{order.title}</Text>
+                                    <Text fontSize={commonStyles.fontSizes}>Order ID: {order._id}</Text>
                                 </GridItem>
                                 <GridItem colSpan={1}>
                                     <Image boxSize={"100px"} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+order.image}/>

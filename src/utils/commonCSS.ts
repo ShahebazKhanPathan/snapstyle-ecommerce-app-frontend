@@ -24,7 +24,21 @@ const commonStyles = {
         headingSizes: { base: "18px", sm: "18px", md: "20px", lg: "20px", xl: "20px"  },
         gridColumns: { base: 2, sm: 3, md: 3, lg: 3, xl: 4 },
         skeletons: [1, 2, 3, 4],
+    },
+    cart: {
+        gridColumns: { base: 1, sm: 1, md: 1, lg: 1, xl: 3 },
+        headingSizes: { base: "20px", sm: "20px", md: "20px", lg: "22px", xl: "22px" },
+        buttonSizes: { base: 'sm', sm: 'sm', md: 'sm', lg: 'md' },
+    },
+    payment: {
+        gridColumns: { base: 1, sm: 1, md: 1, lg: 2, xl: 2 },
+        imageHeight: { base: "150px", md: "200px", lg: "300px", xl: "400px" },
+        headingSizes: { base: "20px", sm: "20px", md: "20px", lg: "22px", xl: "22px" },
+        buttonSizes: { base: 'sm', sm: 'sm', md: 'sm', lg: 'md' },
+        fontSizes: { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" },
+        boxSizes: { base: "240px", sm: "260px", md: "280px", lg: "320px", xl: "360px" }
     }
+
 }
 
 export default commonStyles;
