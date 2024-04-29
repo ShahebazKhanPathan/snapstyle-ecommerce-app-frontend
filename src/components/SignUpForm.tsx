@@ -29,7 +29,7 @@ const SignUpForm = () => {
             })
             .catch(({ response }) => {
                 setLoader(false);
-                setError('Password: '+response.data);
+                setError(response.data);
             });
     }
 

@@ -5,6 +5,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { HiMiniCurrencyDollar  } from "react-icons/hi2";
 import { Link, useSearchParams } from "react-router-dom";
 import { useCart } from "../App";
+import commonStyles from "../utils/commonCSS";
 
 export interface Product{
     title: string;
@@ -18,13 +19,6 @@ export interface Product{
 const Product = () => {
 
     const { setCount } = useCart();
-    const gridColumns = { base: 1, sm: 1, md: 1, lg: 2, xl: 2 };
-    const imageHeight = { base: "150px", md: "200px", lg: "300px", xl: "400px" };
-    const boxSizes = { base: "240px", sm: "260px", md: "280px", lg: "320px", xl: "360px" };
-    const headingSizes = { base: "18px", sm: "18px", md: "20px", lg: "22px", xl: "22px" };
-    const priceLabelSizes = { base: "22px", sm: "22px", md: "24px", lg: "28px", xl: "28px" };
-    const fontSizes = { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" };
-    const buttonSizes = { base: 'sm', sm: 'sm', md: 'md', lg: 'md' };
     const [params] = useSearchParams();
     const [product, setProduct] = useState<Product>();
     const [loadingSkeleton, setSkeleton] = useState(true);
@@ -78,9 +72,9 @@ const Product = () => {
     return (
         <>
             {loadingSkeleton &&
-                <SimpleGrid columns={gridColumns} paddingY={2} spacing={5}>
+                <SimpleGrid columns={commonStyles.product.gridColumns} paddingY={2} spacing={5}>
                     <Box px={{ base: 10, sm: 10, md: 8, lg: 2, xl : 2}} >
-                        <Skeleton height={imageHeight}></Skeleton>
+                        <Skeleton height={commonStyles.product.imageHeight}></Skeleton>
                     </Box>
                     <Box px={{ base: 10, sm: 10, md: 8, lg: 2, xl : 2}}>
                         <Skeleton mb={3} height={{ base: "10px", md: "12px", lg: "16px", xl: "28px" }}></Skeleton>
@@ -95,37 +89,37 @@ const Product = () => {
             {product && 
                 <>
                 {alert &&
-                    <Alert status="success" mb={4} fontSize={fontSizes}>
+                    <Alert status="success" mb={4} fontSize={commonStyles.fontSizes}>
                         <AlertIcon />
                         <AlertTitle>Added!</AlertTitle>
                         <AlertDescription>Check your cart.</AlertDescription>
                     </Alert>
                 }
                 {error &&
-                    <Alert status="error" mb={4} fontSize={fontSizes}>
+                    <Alert status="error" mb={4} fontSize={commonStyles.fontSizes}>
                         <AlertIcon />
                         <AlertTitle>Error:</AlertTitle>
                         <AlertDescription>{error}</AlertDescription>
                     </Alert>
                 }
-                <SimpleGrid columns={gridColumns} paddingY={2} paddingX={2} spacing={5}>
+                <SimpleGrid columns={commonStyles.product.gridColumns} paddingY={2} paddingX={2} spacing={5}>
                     <Box>
                         <Center>
-                            <Image boxSize={boxSizes} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product?.photo.name} />
+                            <Image boxSize={commonStyles.product.boxSizes} objectFit="contain" src={"https://snapstyle.s3.us-west-1.amazonaws.com/"+product?.photo.name} />
                         </Center>
                     </Box>
                     <Box>
-                        <Text fontWeight={600} fontSize={headingSizes} mb={5}>{product?.title}</Text>
-                        <Text fontWeight={600} fontSize={fontSizes} >Description</Text>
-                        <Text fontSize={fontSizes} textAlign="justify">{product?.description}</Text>
+                        <Text fontWeight={600} fontSize={commonStyles.product.headingSizes} mb={5}>{product?.title}</Text>
+                        <Text fontWeight={600} fontSize={commonStyles.fontSizes} >Description</Text>
+                        <Text fontSize={commonStyles.fontSizes} textAlign="justify">{product?.description}</Text>
                         <HStack mb={3}>
-                            <Text fontSize={priceLabelSizes} fontWeight={500}>${product?.price}</Text>
-                            <Text fontSize={fontSizes} color="green">50% off</Text>
+                            <Text fontSize={commonStyles.product.priceLabelSizes} fontWeight={500}>${product?.price}</Text>
+                            <Text fontSize={commonStyles.fontSizes} color="green">50% off</Text>
                         </HStack>
                         <Center>
                             <HStack spacing={5}>
-                                <Button isLoading={loader} onClick={() => addtoCart()} colorScheme="yellow" size={buttonSizes} leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
-                                <Link to={"/payment?pid="+id}><Button colorScheme="green" size={buttonSizes}  leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button></Link>
+                                <Button isLoading={loader} onClick={() => addtoCart()} colorScheme="yellow" size={commonStyles.product.buttonSizes} leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
+                                <Link to={"/payment?pid="+id}><Button colorScheme="green" size={commonStyles.product.buttonSizes}  leftIcon={<HiMiniCurrencyDollar size="20px"/>}>Buy Now</Button></Link>
                             </HStack>
                         </Center>
 

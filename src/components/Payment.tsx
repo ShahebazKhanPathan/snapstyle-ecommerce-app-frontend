@@ -178,12 +178,14 @@ const Payment = () => {
                                 </HStack>
                                 <div className="form-group mb-3">
                                     <Input {...register("card.cardNo", { required: "Card No. is required.", minLength: {value: 12, message: "Card no must be 12 digits."} })} size={commonStyles.payment.buttonSizes} type="number" id="cardNo" placeholder="Credit or Debit Card no." />
-                                    {errors.card?.cardNo && <Text fontSize={commonStyles.fontSizes} color="red">{errors.card?.cardNo.message}</Text>}
                                 </div>
                                 <HStack mb={5}>
                                     <Input {...register("card.expiry", { required: true, minLength: { value: 5, message: "Date must be like 01/23" } })} size={commonStyles.payment.buttonSizes} width="70%" type="text" id="expiry" placeholder="Expiry date" />
                                     <Input {...register("card.cvvNo", { required: true, minLength: { value: 3, message: "CVV 3 digits required" } })} size={commonStyles.payment.buttonSizes} width="30%" type="number" id="cvvNo" placeholder="CVV" />
                                 </HStack>
+                                {errors.card?.cardNo && <Text fontSize={commonStyles.fontSizes} color="red">{errors.card?.cardNo.message}</Text>}
+                                {errors.card?.expiry && <Text fontSize={commonStyles.fontSizes} color="red">{errors.card.expiry.message}</Text>}
+                                {errors.card?.cvvNo && <Text fontSize={commonStyles.fontSizes} color="red">{errors.card.cvvNo.message}</Text>}
                                 <Button isLoading={loadingSpinner} width="20%" size={commonStyles.payment.buttonSizes} colorScheme="yellow" type="submit" >Pay</Button>
                             </CardBody>
                         </Card>

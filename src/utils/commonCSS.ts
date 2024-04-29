@@ -37,6 +37,14 @@ const commonStyles = {
         buttonSizes: { base: 'sm', sm: 'sm', md: 'sm', lg: 'md' },
         fontSizes: { base: "14px", sm: "14px", md: "16px", lg: "18px", xl: "18px" },
         boxSizes: { base: "240px", sm: "260px", md: "280px", lg: "320px", xl: "360px" }
+    },
+    product: {
+        gridColumns: { base: 1, sm: 1, md: 1, lg: 2, xl: 2 },
+        imageHeight: { base: "150px", md: "200px", lg: "300px", xl: "400px" },
+        boxSizes: { base: "240px", sm: "260px", md: "280px", lg: "320px", xl: "360px" },
+        headingSizes: { base: "18px", sm: "18px", md: "20px", lg: "22px", xl: "22px" },
+        priceLabelSizes: { base: "22px", sm: "22px", md: "24px", lg: "28px", xl: "28px" },
+        buttonSizes: { base: 'sm', sm: 'sm', md: 'md', lg: 'md' }
     }
 
 }
